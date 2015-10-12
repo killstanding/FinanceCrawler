@@ -1,5 +1,6 @@
 package com.jerry.financecrawler.job;
 
+import com.jerry.financecrawler.commons.CommonsCharset;
 import com.jerry.financecrawler.commons.CommonsUrl;
 import com.jerry.financecrawler.db.dao.IEastFinanceDao;
 import com.jerry.financecrawler.db.po.EastFinancePo;
@@ -23,6 +24,8 @@ public class EastFinanceJob implements QuartzJob {
     private static final Logger log = LoggerFactory.getLogger(EastFinanceJob.class);
 
     private static final String baseUrl = CommonsUrl.EAST_FINANCE_URL;
+
+    private static final String charset = CommonsCharset.GB2312;
 
     @Resource
     private HtmlRequest htmlRequest;
@@ -53,11 +56,11 @@ public class EastFinanceJob implements QuartzJob {
 
     private EastFinanceTotalVo getHtmlData(int index, int pageNum, int allpages) throws Exception {
         String url = CommonsUrl.getUrl(baseUrl, index, pageNum, 0);
-        String data = htmlRequest.getHtmlData(url);
+        String data = htmlRequest.getHtmlData(url, charset);
         EastFinanceTotalVo eastFinanceTotalVo = null;
         if (!data.equals("")) {
             data = data.substring(data.indexOf("=") + 1, data.length());
-            eastFinanceTotalVo = jsonToEastOBject.parseToEastFinance(data);
+            eastFinanceTotalVo = jsonToEastOBject.parseToEastFinanceData(data);
             // System.out.println("eastFinanceTotalVo = ["+eastFinanceTotalVo.toString()+"]");
             List<EastFinanceVo> eastFinanceVoList = eastFinanceTotalVo.getDatas();
             saveEastFinanceData(eastFinanceVoList);

@@ -32,7 +32,7 @@ public class HtmlRequest {
         return bos.toByteArray();
     }
 
-    public  String getHtmlData(String rurl) throws IOException{
+    public  String getHtmlData(String rurl, String charset) throws IOException{
         URL url = new URL(rurl);
         HttpURLConnection conn = (HttpURLConnection)url.openConnection();
         InputStream inputStream = null;
@@ -40,7 +40,7 @@ public class HtmlRequest {
         try{
             inputStream = conn.getInputStream();   //通过输入流获得网站数据
             byte[] getData = readInputStream(inputStream);     //获得网站的二进制数据
-            data = new String(getData, "gb2312");
+            data = new String(getData,charset);
         }catch (IOException ex){
             inputStream.close();
             throw ex;

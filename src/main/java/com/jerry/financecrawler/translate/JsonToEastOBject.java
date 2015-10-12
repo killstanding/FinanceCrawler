@@ -14,7 +14,7 @@ import java.util.List;
  */
 @Component
 public class JsonToEastOBject {
-    public EastFinanceTotalVo parseToEastFinance(String json) throws Exception{
+    public EastFinanceTotalVo parseToEastFinanceData(String json) throws Exception{
         EastFinanceTotalVo eastFinanceTotalVo = new EastFinanceTotalVo();
         JSONObject jsonObject = new JSONObject(json);
         int pageIndex = jsonObject.getInt("PageIndex");
