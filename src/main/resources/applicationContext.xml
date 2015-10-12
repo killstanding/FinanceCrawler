@@ -14,8 +14,7 @@
 
 <!-- c3p0连接池 -->
 	<!-- 引入属性文件 -->
-	<context:property-placeholder location="classpath:config.properties" />
-
+	<context:property-placeholder location="classpath:config.properties,classpath:jobtime.properties" />
 	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
 		<!-- access -->
 		<property name="driverClass" value="${db.driver}" />

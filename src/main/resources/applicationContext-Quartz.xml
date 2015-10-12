@@ -53,7 +53,7 @@
                      <ref bean="howBuyHistoricalNetJobDetail" />
               </property>
               <property name="cronExpression">
-                     <value>0/10 * * * * ?</value> <!-- 0/5 * * * * ? 每隔5秒执行一次-->
+                     <value>${howbuy.historicalnet}</value> <!-- 0/5 * * * * ? 每隔5秒执行一次-->
               </property>
        </bean>
 
