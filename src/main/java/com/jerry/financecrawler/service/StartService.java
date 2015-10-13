@@ -8,8 +8,8 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  */
 public class StartService {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception{
         ApplicationContext context = new ClassPathXmlApplicationContext("classpath:applicationContext*.xml");
-
+        System.out.println("服务已经正常启动...");
     }
 }

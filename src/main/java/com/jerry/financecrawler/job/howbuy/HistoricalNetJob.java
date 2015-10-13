@@ -41,7 +41,7 @@ public class HistoricalNetJob implements QuartzJob {
 
     @Override
     public void execute() {
-
+        log.info("howbuy 历史净值采集服务启动");
         List<FundProductPo> fundProductPoList = fundProductDao.findAll();
         if (fundProductPoList != null) {
             for (int i = 0; i < fundProductPoList.size(); i++) {
@@ -53,12 +53,14 @@ public class HistoricalNetJob implements QuartzJob {
                 try {
                     historicalNetList = getHtmlData(product_id, product_code);
                 } catch (Exception ex) {
+
                     ex.printStackTrace();
                     log.error("Error " + this.getClass().getName() + "dealing HowBuyHistoricalNetJob data", ex);
                 }
                 saveHistoricalNetData(historicalNetList);
             }
         }
+        log.info("howbuy 历史净值采集服务完成");
     }
 
     private List<HistoricalNetVo> getHtmlData(int product_id, String product_code) throws Exception {
