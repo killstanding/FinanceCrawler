@@ -53,9 +53,8 @@ public class HistoricalNetJob implements QuartzJob {
                 try {
                     historicalNetList = getHtmlData(product_id, product_code);
                 } catch (Exception ex) {
-
-                    ex.printStackTrace();
                     log.error("Error " + this.getClass().getName() + "dealing HowBuyHistoricalNetJob data", ex);
+                    ex.printStackTrace();
                 }
                 saveHistoricalNetData(historicalNetList);
             }
