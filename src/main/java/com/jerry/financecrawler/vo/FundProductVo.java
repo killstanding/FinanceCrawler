@@ -34,7 +34,7 @@ public class FundProductVo {
     private int product_CLOSURE_PERIOD;    //封闭期(天)（转换下）
     private double product_EARLY_WARNING_LINE;    //预警线
     private double product_STOP_LINE;    //止损线
-    private int product_CLASSIFICATON;    //是否分级 0 否 1 是
+    private String product_CLASSIFICATON;    //是否分级 0 否 1 是
     private String product_GRADING_SCALE;    //分级比例
     private String product_OTHERS; //其他说明
     private double product_price;   //产品价格
@@ -42,7 +42,7 @@ public class FundProductVo {
     private String productcategory_code;  //产品分类代码
     private String product_image_url;    //图片url
     private int product_is_crawler = 1; //是否为爬取 1 是 0 不是
-
+    private IncomeVo incomeVo;
     public int getId() {
         return id;
     }
@@ -275,11 +275,11 @@ public class FundProductVo {
         this.product_STOP_LINE = product_STOP_LINE;
     }
 
-    public int getProduct_CLASSIFICATON() {
+    public String getProduct_CLASSIFICATON() {
         return product_CLASSIFICATON;
     }
 
-    public void setProduct_CLASSIFICATON(int product_CLASSIFICATON) {
+    public void setProduct_CLASSIFICATON(String product_CLASSIFICATON) {
         this.product_CLASSIFICATON = product_CLASSIFICATON;
     }
 
@@ -339,10 +339,18 @@ public class FundProductVo {
         this.product_is_crawler = product_is_crawler;
     }
 
+    public IncomeVo getIncomeVo() {
+        return incomeVo;
+    }
+
+    public void setIncomeVo(IncomeVo incomeVo) {
+        this.incomeVo = incomeVo;
+    }
+
     @Override
     public String toString() {
         return "FundProductVo{" +
-                "id='" + id + '\'' +
+                "id=" + id +
                 ", product_name='" + product_name + '\'' +
                 ", product_shortname='" + product_shortname + '\'' +
                 ", product_code='" + product_code + '\'' +
@@ -371,7 +379,7 @@ public class FundProductVo {
                 ", product_CLOSURE_PERIOD=" + product_CLOSURE_PERIOD +
                 ", product_EARLY_WARNING_LINE=" + product_EARLY_WARNING_LINE +
                 ", product_STOP_LINE=" + product_STOP_LINE +
-                ", product_CLASSIFICATON=" + product_CLASSIFICATON +
+                ", product_CLASSIFICATON='" + product_CLASSIFICATON + '\'' +
                 ", product_GRADING_SCALE='" + product_GRADING_SCALE + '\'' +
                 ", product_OTHERS='" + product_OTHERS + '\'' +
                 ", product_price=" + product_price +
@@ -379,6 +387,7 @@ public class FundProductVo {
                 ", productcategory_code='" + productcategory_code + '\'' +
                 ", product_image_url='" + product_image_url + '\'' +
                 ", product_is_crawler=" + product_is_crawler +
+                ", incomeVo=" + incomeVo +
                 '}';
     }
 }
