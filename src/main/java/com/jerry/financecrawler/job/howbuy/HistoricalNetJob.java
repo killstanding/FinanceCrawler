@@ -51,12 +51,17 @@ public class HistoricalNetJob implements QuartzJob {
                 //System.out.println("product_code = " + product_code);
                 List<HistoricalNetVo> historicalNetList = null;
                 try {
-                    historicalNetList = getHtmlData(product_id, product_code);
+                    if (product_code != null && !product_code.equals("")) {
+                        historicalNetList = getHtmlData(product_id, product_code);
+                    } else {
+                        log.error(fundProduct.getProduct_name() + "(" + fundProduct.getProduct_shortname() + ")的 product_code为空");
+                    }
                 } catch (Exception ex) {
-                    log.error("Error " + this.getClass().getName() + "dealing HowBuyHistoricalNetJob data", ex);
+                    log.error(fundProduct.getProduct_name() + "(" + fundProduct.getProduct_shortname() + ")的 product_code = " + product_code);
+                    log.error("dealing HowBuyHistoricalNetJob data", ex);
                     ex.printStackTrace();
                 }
-                saveHistoricalNetData(historicalNetList);
+                if(historicalNetList != null) saveHistoricalNetData(historicalNetList);
             }
         }
         log.info("howbuy 历史净值采集服务完成");
@@ -74,19 +79,21 @@ public class HistoricalNetJob implements QuartzJob {
 
     private void saveHistoricalNetData(List<HistoricalNetVo> historicalNetList) {
         if (historicalNetList != null) {
-            int maxId = historicalNetDao.getMaxId();
+            Integer maxId = historicalNetDao.getMaxId();
+            if(maxId == null) maxId = 0;
             for (int i = 0; i < historicalNetList.size(); i++) {
                 HistoricalNetVo midVo = historicalNetList.get(i);
                 HistoricalNetPo midPo = changeToPo(midVo);
                 String product_code = midPo.getProduct_code();
                 String net_worth_date = midPo.getNet_worth_date();
                 if (historicalNetDao.findByProductIDAndDate(product_code, net_worth_date) == null) {
-                    midPo.setId(maxId + i + 1);
-                    historicalNetDao.save(midPo);
-                }
-
-            }
-        }
+                    if (midPo.getNet_worth_date() != null && !midPo.getNet_worth_date().equals("")) {
+                        midPo.setId(maxId + i + 1);
+                        historicalNetDao.save(midPo);
+                    }//if
+                }//if
+            }//for
+        }//if
     }
 
     private HistoricalNetPo changeToPo(HistoricalNetVo vo) {
