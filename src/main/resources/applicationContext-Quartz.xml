@@ -30,6 +30,33 @@
               </property>
        </bean>
 
+       <bean id="howBuyFundProductJob" class="com.jerry.financecrawler.job.howbuy.FundProductJob" />
+       <bean id="howBuyFundProductJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+              <property name="group" value="job_work"/>
+              <property name="name" value="job_work_name"/>
+              <!-- 是否允许任务并发执行。当值为false时，表示必须等到前一个线程处理完毕后才再启一个新的线程 -->
+              <property name="concurrent" value="false"/>
+              <property name="targetObject">
+                     <ref bean="howBuyFundProductJob"/>
+              </property>
+              <property name="targetMethod">
+                     <value>execute</value>
+              </property>
+       </bean>
+
+       <!--  调度触发器 -->
+       <bean id="howBuyFundProductJobCronTrigger"
+             class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+              <property name="name" value="work_default_name"/>
+              <property name="group" value="work_default"/>
+              <property name="jobDetail">
+                     <ref bean="howBuyFundProductJobDetail" />
+              </property>
+              <property name="cronExpression">
+                     <value>${howbuy.fundproduct}</value> <!-- 0/5 * * * * ? 每隔5秒执行一次-->
+              </property>
+       </bean>
+
        <bean id="howBuyHistoricalNetJob" class="com.jerry.financecrawler.job.howbuy.HistoricalNetJob" />
        <bean id="howBuyHistoricalNetJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
               <property name="group" value="job_work"/>
@@ -56,13 +83,13 @@
                      <value>${howbuy.historicalnet}</value> <!-- 0/5 * * * * ? 每隔5秒执行一次-->
               </property>
        </bean>
-
        <!-- 调度工厂 -->
        <bean id="scheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
               <property name="triggers">
                      <list>
-                            <!--<ref bean="eastFinanceJobCronTrigger"/>-->
-                            <ref bean="howBuyHistoricalNetJobCronTrigger"/>
+                         <!--<ref bean="eastFinanceJobCronTrigger"/>-->
+                         <ref bean="howBuyFundProductJobCronTrigger"/>
+                         <!-- <ref bean="howBuyHistoricalNetJobCronTrigger"/>-->
                      </list>
               </property>
        </bean>
