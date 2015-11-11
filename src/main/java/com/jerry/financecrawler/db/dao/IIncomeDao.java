@@ -9,9 +9,9 @@ import com.jerry.financecrawler.db.po.IncomePo;
 public interface IIncomeDao {
     void save(IncomePo incomePo);
 
-    void remove(String product_id);
+    void remove(int product_id);
 
     void modify(IncomePo incomePo);
 
-    IncomePo find(String product_id);
+    IncomePo find(int product_id);
 }

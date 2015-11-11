@@ -9,6 +9,7 @@ import javax.annotation.Resource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.List;
 
 /**
@@ -70,7 +71,7 @@ public class FundProductDao implements IFundProductDao {
                 ps.setInt(27, fundProductPo.getProduct_CLOSURE_PERIOD());
                 ps.setDouble(28, fundProductPo.getProduct_EARLY_WARNING_LINE());
                 ps.setDouble(29, fundProductPo.getProduct_STOP_LINE());
-                ps.setInt(30, fundProductPo.getProduct_CLASSIFICATON());
+                ps.setString(30, fundProductPo.getProduct_CLASSIFICATON());
 
                 ps.setString(31, fundProductPo.getProduct_GRADING_SCALE());
                 ps.setString(32, fundProductPo.getProduct_OTHERS());
@@ -86,9 +87,9 @@ public class FundProductDao implements IFundProductDao {
     }
 
     @Override
-    public void remove(String id) {
-        String sql = "DELETE FROM bs_product WHERE id=" + id;
-        jdbcTemplate.update(sql);
+    public void remove(int id) {
+        String sql = "DELETE FROM bs_product WHERE id = ?";
+        jdbcTemplate.update(sql, new Object[]{id}, new int[]{Types.INTEGER});
     }
 
     @Override
@@ -138,7 +139,7 @@ public class FundProductDao implements IFundProductDao {
                 ps.setInt(26, fundProductPo.getProduct_CLOSURE_PERIOD());
                 ps.setDouble(27, fundProductPo.getProduct_EARLY_WARNING_LINE());
                 ps.setDouble(28, fundProductPo.getProduct_STOP_LINE());
-                ps.setInt(29, fundProductPo.getProduct_CLASSIFICATON());
+                ps.setString(29, fundProductPo.getProduct_CLASSIFICATON());
 
                 ps.setString(30, fundProductPo.getProduct_GRADING_SCALE());
                 ps.setString(31, fundProductPo.getProduct_OTHERS());
@@ -156,9 +157,10 @@ public class FundProductDao implements IFundProductDao {
     }
 
     @Override
-    public FundProductPo find(String id) {
-        String sql = "SELECT * FROM bs_product WHERE id=" + id;
-        List<FundProductPo> fundProductPoList = jdbcTemplate.query(sql, new FundProductPo());
+    public FundProductPo find(int id) {
+        String sql = "SELECT * FROM bs_product WHERE id = ?";
+        List<FundProductPo> fundProductPoList = jdbcTemplate.query(sql, new Object[]{id},
+                new int[]{Types.INTEGER}, new FundProductPo());
         if (fundProductPoList.isEmpty()) {
             return null;
         } else {
@@ -172,5 +174,24 @@ public class FundProductDao implements IFundProductDao {
         List<FundProductPo> fundProductPoList = jdbcTemplate.query(sql, new FundProductPo());
 
         return fundProductPoList;
+    }
+
+    @Override
+    public FundProductPo findByCodeOrName(String product_code, String product_name){
+        String sql = "SELECT * FROM bs_product WHERE product_code = ? or product_name = ? or product_shortname = ?";
+        List<FundProductPo> fundProductPoList = jdbcTemplate.query(sql, new Object[]{product_code, product_name, product_name},
+                new int[]{Types.VARCHAR,Types.VARCHAR,Types.VARCHAR}, new FundProductPo());
+        if (fundProductPoList.isEmpty()) {
+            return null;
+        } else {
+            return fundProductPoList.get(0);
+        }
+    }
+
+    @Override
+    public Integer getMaxId() {
+        String sql = "select max(id) as maxid from bs_product";
+        Integer maxId = jdbcTemplate.queryForObject(sql, Integer.class);
+        return maxId;
     }
 }

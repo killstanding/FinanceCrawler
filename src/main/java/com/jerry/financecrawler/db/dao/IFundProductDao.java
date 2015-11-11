@@ -11,11 +11,15 @@ import java.util.List;
 public interface IFundProductDao {
     void save(FundProductPo fundProductPo);
 
-    void remove(String id);
+    void remove(int id);
 
     void modify(FundProductPo fundProductPo);
 
-    FundProductPo find(String id);
+    FundProductPo find(int id);
 
     List<FundProductPo> findAll();
+
+    FundProductPo findByCodeOrName(String product_code, String product_name);
+
+    Integer getMaxId();
 }

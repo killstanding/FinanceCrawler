@@ -9,6 +9,7 @@ import javax.annotation.Resource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.List;
 
 /**
@@ -53,9 +54,9 @@ public class IncomeDao implements IIncomeDao {
     }
 
     @Override
-    public void remove(String product_id) {
-        String sql = "DELETE FROM bs_income WHERE product_id=" + product_id;
-        jdbcTemplate.update(sql);
+    public void remove(int product_id) {
+        String sql = "DELETE FROM bs_income WHERE product_id =" + product_id;
+        jdbcTemplate.update(sql, new Object[]{product_id}, new int[]{Types.INTEGER});
     }
 
     @Override
@@ -89,9 +90,10 @@ public class IncomeDao implements IIncomeDao {
     }
 
     @Override
-    public IncomePo find(String product_id) {
-        String sql = "SELECT * FROM bs_income WHERE product_id=" + product_id;
-        List<IncomePo> incomePoList = jdbcTemplate.query(sql, new IncomePo());
+    public IncomePo find(int product_id) {
+        String sql = "SELECT * FROM bs_income WHERE product_id = ?" ;
+        List<IncomePo> incomePoList = jdbcTemplate.query(sql,new Object[]{product_id},
+                new int[]{Types.INTEGER}, new IncomePo());
         if (incomePoList.isEmpty()) {
             return null;
         } else {

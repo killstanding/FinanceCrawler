@@ -9,13 +9,13 @@ import com.jerry.financecrawler.db.po.HistoricalNetPo;
 public interface IHistoricalNetDao {
     void save(HistoricalNetPo historicalNetPo);
 
-    void remove(String id);
+    void remove(int id);
 
     void modify(HistoricalNetPo historicalNetPo);
 
-    HistoricalNetPo find(String id);
+    HistoricalNetPo find(int id);
 
     HistoricalNetPo findByProductIDAndDate(String product_id, String date);
 
-    int getMaxId();
+    Integer getMaxId();
 }

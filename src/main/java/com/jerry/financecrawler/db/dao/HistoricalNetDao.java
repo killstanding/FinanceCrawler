@@ -9,6 +9,7 @@ import javax.annotation.Resource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.List;
 
 /**
@@ -46,9 +47,9 @@ public class HistoricalNetDao implements IHistoricalNetDao {
     }
 
     @Override
-    public void remove(String id) {
-        String sql = "DELETE FROM bs_networth WHERE id=" + id;
-        jdbcTemplate.update(sql);
+    public void remove(int id) {
+        String sql = "DELETE FROM bs_networth WHERE id = ?";
+        jdbcTemplate.update(sql, new Object[]{id}, new int[]{Types.INTEGER});
     }
 
     @Override
@@ -75,9 +76,10 @@ public class HistoricalNetDao implements IHistoricalNetDao {
     }
 
     @Override
-    public HistoricalNetPo find(String id) {
-        String sql = "SELECT * FROM bs_networth WHERE id=" + id;
-        List<HistoricalNetPo> historicalNetPoList = jdbcTemplate.query(sql, new HistoricalNetPo());
+    public HistoricalNetPo find(int id) {
+        String sql = "SELECT * FROM bs_networth WHERE id = ?";
+        List<HistoricalNetPo> historicalNetPoList = jdbcTemplate.query(sql, new Object[]{id},
+                new int[]{Types.INTEGER}, new HistoricalNetPo());
         if (historicalNetPoList.isEmpty()) {
             return null;
         } else {
@@ -87,8 +89,9 @@ public class HistoricalNetDao implements IHistoricalNetDao {
 
     @Override
     public HistoricalNetPo findByProductIDAndDate(String product_code, String net_worth_date) {
-        String sql = "SELECT * FROM bs_networth WHERE product_code = '" + product_code + "' and net_worth_date = '" + net_worth_date + "'"  ;
-        List<HistoricalNetPo> historicalNetPoList = jdbcTemplate.query(sql, new HistoricalNetPo());
+        String sql = "SELECT * FROM bs_networth WHERE product_code =  ? and net_worth_date =  ?";
+        List<HistoricalNetPo> historicalNetPoList = jdbcTemplate.query(sql, new Object[]{product_code, net_worth_date},
+                new int[]{Types.VARCHAR,Types.VARCHAR}, new HistoricalNetPo());
         if (historicalNetPoList.isEmpty()) {
             return null;
         } else {
@@ -97,9 +100,9 @@ public class HistoricalNetDao implements IHistoricalNetDao {
     }
 
     @Override
-    public int getMaxId() {
-        String sql = "select max(id) as maxid from bs_networth"  ;
-       int  maxId = jdbcTemplate.queryForInt(sql);
-       return maxId;
+    public Integer getMaxId() {
+        String sql = "select max(id) as maxid from bs_networth";
+        Integer maxId = jdbcTemplate.queryForObject(sql, Integer.class);
+        return maxId;
     }
 }
