@@ -139,31 +139,27 @@
                 </configuration>
             </plugin>
         </plugins>
-         <!--<resources>-->
-             <!--<resource>-->
-                 <!--<directory>src/main/java</directory>-->
-                 <!--&lt;!&ndash; 包含 &ndash;&gt;-->
-                 <!--<includes>-->
-                     <!--<include>**/*.xml</include>-->
-                 <!--</includes>-->
-                 <!--&lt;!&ndash; 排除  &ndash;&gt;-->
-                 <!--<excludes>-->
-                     <!--<exclude>**/*.properties</exclude>-->
-                 <!--</excludes>-->
-             <!--</resource>-->
-             <!--<resource>-->
-                 <!--<directory>src/main/resources</directory>-->
-                 <!--<filtering>true</filtering>-->
-                 <!--&lt;!&ndash; 包含 &ndash;&gt;-->
-                 <!--<includes>-->
-                     <!--<include>**/*.xml</include>-->
-                 <!--</includes>-->
-                 <!--&lt;!&ndash; 排除  &ndash;&gt;-->
-                 <!--<excludes>-->
-                     <!--<exclude>**/*.properties</exclude>-->
-                 <!--</excludes>-->
-             <!--</resource>-->
-        <!--</resources>-->
+       <!--  <resources>
+             <resource>
+                 <directory>src/main/java</directory>
+                 &lt;!&ndash; 包含 &ndash;&gt;
+                 <includes>
+                     <include>**/*.xml</include>
+                 </includes>
+                 &lt;!&ndash; 排除  &ndash;&gt;
+                 <excludes>
+                     <exclude>**/*.properties</exclude>
+                 </excludes>
+             </resource>
+             <resource>
+                 <directory>src/main/resources</directory>
+                 <filtering>true</filtering>
+                 &lt;!&ndash; 排除  &ndash;&gt;
+                 <excludes>
+                     <exclude>**/*.*</exclude>
+                 </excludes>
+             </resource>
+        </resources>-->
     </build>
 
 </project>
