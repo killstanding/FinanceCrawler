@@ -12,11 +12,12 @@
 ### 完成
 
 *  完成抓取东方财富首页数据
+*  完成howbuy 产品基本数据和收益的爬取
 *  完成howbuy 历史净值的爬取
 
 ### 关键技术
 
-* 东方财富数据为json 采用org.json进行翻译
+* 东方财富数据为json  采用org.json进行翻译
 * howbuy 数据为html  采用org.htmlparser进行翻译
 * 定时任务           采用org.quartz与spring相结合进行处理
 
