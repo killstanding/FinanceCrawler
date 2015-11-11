@@ -10,6 +10,17 @@ import java.sql.SQLException;
  * Created by Jerry on 2015/9/20.
  */
 public class FundProductPo extends FundProductVo implements RowMapper<FundProductPo> {
+
+    private IncomePo incomePo;
+
+    public IncomePo getIncomePo() {
+        return incomePo;
+    }
+
+    public void setIncomePo(IncomePo incomePo) {
+        this.incomePo = incomePo;
+    }
+
     @Override
     public int hashCode() {
         return getId() * 3;
@@ -59,7 +70,7 @@ public class FundProductPo extends FundProductVo implements RowMapper<FundProduc
         fundProductPo.setProduct_CLOSURE_PERIOD(rs.getInt("product_CLOSURE_PERIOD"));    //封闭期(天)（转换下）
         fundProductPo.setProduct_EARLY_WARNING_LINE(rs.getDouble("product_EARLY_WARNING_LINE"));    //预警线
         fundProductPo.setProduct_STOP_LINE(rs.getDouble("product_STOP_LINE"));    //止损线
-        fundProductPo.setProduct_CLASSIFICATON(rs.getInt("product_CLASSIFICATON"));    //是否分级 0 否 1 是
+        fundProductPo.setProduct_CLASSIFICATON(rs.getString("product_CLASSIFICATON"));    //是否分级 0 否 1 是
         fundProductPo.setProduct_GRADING_SCALE(rs.getString("product_GRADING_SCALE"));    //分级比例
         fundProductPo.setProduct_OTHERS(rs.getString("product_OTHERS")); //其他说明
         fundProductPo.setProduct_price(rs.getDouble("product_price"));   //产品价格
