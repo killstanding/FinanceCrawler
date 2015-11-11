@@ -2,4 +2,6 @@
 .DS_Store
 out/
 target/
-
+*.iml
+log/
+lib/
