@@ -42,10 +42,10 @@ public class HtmlRequest {
             byte[] getData = readInputStream(inputStream);     //获得网站的二进制数据
             data = new String(getData,charset);
         }catch (IOException ex){
-            inputStream.close();
+            if(inputStream != null)inputStream.close();
             throw ex;
         }finally {
-            inputStream.close();
+            if(inputStream != null)inputStream.close();
         }
         return data;
     }

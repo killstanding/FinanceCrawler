@@ -27,11 +27,11 @@ public class HtmlToHistoricalNetVo {
         parser.setEncoding(CommonsCharset.UTF_8);
         NodeFilter filter = new HasAttributeFilter( "class", "fund_data" );
         NodeList div = parser.extractAllNodesThatMatch(filter);
-        if(div != null){
+        if(div != null && div.elementAt(0) != null){
             NodeList table = new NodeList();
             NodeFilter tabFilter = new TagNameFilter("table");
             div.elementAt(0).collectInto(table, tabFilter);
-            if(table != null && table.size() > 0){
+            if(table != null && table.elementAt(0)!= null && table.size() > 0){
                 resultList = new ArrayList<HistoricalNetVo>();
                 NodeList trs = new NodeList();
                 NodeFilter trFilter = new TagNameFilter("tr");
