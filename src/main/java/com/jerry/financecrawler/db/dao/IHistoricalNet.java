@@ -6,7 +6,7 @@ import com.jerry.financecrawler.db.po.HistoricalNetPo;
  * Created by Jerry on 2015/9/20
  * 历史净值 接口.
  */
-public interface IHistoricalNetDao {
+public interface IHistoricalNet {
     void save(HistoricalNetPo historicalNetPo);
 
     void remove(int id);

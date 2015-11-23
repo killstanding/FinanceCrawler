@@ -16,7 +16,7 @@ import java.util.List;
  */
 
 @Repository
-public class EastFinanceDao implements IEastFinanceDao {
+public class EastFinanceDao implements IEastFinance {
 
     @Resource
     private JdbcTemplate jdbcTemplate;

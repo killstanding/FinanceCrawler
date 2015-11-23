@@ -8,7 +8,7 @@ import java.util.List;
  * Created by Jerry on 2015/9/20.
  * 基金产品
  */
-public interface IFundProductDao {
+public interface IFundProduct {
     void save(FundProductPo fundProductPo);
 
     void remove(int id);

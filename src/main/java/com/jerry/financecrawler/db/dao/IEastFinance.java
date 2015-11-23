@@ -5,7 +5,7 @@ import com.jerry.financecrawler.db.po.EastFinancePo;
 /**
  * Created by Jerry on 2015/9/20.
  */
-public interface IEastFinanceDao {
+public interface IEastFinance {
     void save(EastFinancePo eastFinancePo);
 
     void remove(String id);

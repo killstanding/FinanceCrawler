@@ -18,7 +18,7 @@ import java.util.List;
  */
 
 @Repository
-public class IncomeDao implements IIncomeDao {
+public class IncomeDao implements IIncome {
 
     @Resource
     private JdbcTemplate jdbcTemplate;
