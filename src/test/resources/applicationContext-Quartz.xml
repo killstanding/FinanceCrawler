@@ -3,134 +3,169 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-       <bean id="eastFinanceJob" class="com.jerry.financecrawler.job.EastFinanceJob" />
-       <bean id="eastFinanceJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
-              <property name="group" value="job_work"/>
-              <property name="name" value="job_work_name"/>
-              <!-- 是否允许任务并发执行。当值为false时，表示必须等到前一个线程处理完毕后才再启一个新的线程 -->
-              <property name="concurrent" value="false"/>
-              <property name="targetObject">
-                     <ref bean="eastFinanceJob"/>
-              </property>
-              <property name="targetMethod">
-                     <value>execute</value>
-              </property>
-       </bean>
+    <bean id="eastFinanceJob" class="com.jerry.financecrawler.job.EastFinanceJob"/>
+    <bean id="eastFinanceJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="group" value="job_work"/>
+        <property name="name" value="job_work_name"/>
+        <!-- 是否允许任务并发执行。当值为false时，表示必须等到前一个线程处理完毕后才再启一个新的线程 -->
+        <property name="concurrent" value="false"/>
+        <property name="targetObject">
+            <ref bean="eastFinanceJob"/>
+        </property>
+        <property name="targetMethod">
+            <value>execute</value>
+        </property>
+    </bean>
 
-       <!--  调度触发器 -->
-       <bean id="eastFinanceJobCronTrigger"
-             class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
-              <property name="name" value="work_default_name"/>
-              <property name="group" value="work_default"/>
-              <property name="jobDetail">
-                     <ref bean="eastFinanceJobDetail" />
-              </property>
-              <property name="cronExpression">
-                     <value>0/10 * * * * ?</value> <!-- 0/5 * * * * ? 每隔5秒执行一次-->
-              </property>
-       </bean>
+    <!--  调度触发器 -->
+    <bean id="eastFinanceJobCronTrigger"
+          class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="name" value="work_default_name"/>
+        <property name="group" value="work_default"/>
+        <property name="jobDetail">
+            <ref bean="eastFinanceJobDetail"/>
+        </property>
+        <property name="cronExpression">
+            <value>0/10 * * * * ?</value>
+            <!-- 0/5 * * * * ? 每隔5秒执行一次-->
+        </property>
+    </bean>
 
-       <bean id="howBuyFundProductJob" class="com.jerry.financecrawler.job.howbuy.FundProductJob" />
-       <bean id="howBuyFundProductJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
-              <property name="group" value="job_work"/>
-              <property name="name" value="job_work_name"/>
-              <!-- 是否允许任务并发执行。当值为false时，表示必须等到前一个线程处理完毕后才再启一个新的线程 -->
-              <property name="concurrent" value="false"/>
-              <property name="targetObject">
-                     <ref bean="howBuyFundProductJob"/>
-              </property>
-              <property name="targetMethod">
-                     <value>execute</value>
-              </property>
-       </bean>
+    <bean id="howBuyFundProductJob" class="com.jerry.financecrawler.job.howbuy.FundProductJob"/>
+    <bean id="howBuyFundProductJobDetail"
+          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="group" value="job_work"/>
+        <property name="name" value="job_work_name"/>
+        <!-- 是否允许任务并发执行。当值为false时，表示必须等到前一个线程处理完毕后才再启一个新的线程 -->
+        <property name="concurrent" value="false"/>
+        <property name="targetObject">
+            <ref bean="howBuyFundProductJob"/>
+        </property>
+        <property name="targetMethod">
+            <value>execute</value>
+        </property>
+    </bean>
 
-       <!--  调度触发器 -->
-       <bean id="howBuyFundProductJobCronTrigger"
-             class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
-              <property name="name" value="work_default_name"/>
-              <property name="group" value="work_default"/>
-              <property name="jobDetail">
-                     <ref bean="howBuyFundProductJobDetail" />
-              </property>
-              <property name="cronExpression">
-                     <value>${howbuy.fundproduct}</value> <!-- 0/5 * * * * ? 每隔5秒执行一次-->
-              </property>
-       </bean>
+    <!--  调度触发器 -->
+    <bean id="howBuyFundProductJobCronTrigger"
+          class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="name" value="work_default_name"/>
+        <property name="group" value="work_default"/>
+        <property name="jobDetail">
+            <ref bean="howBuyFundProductJobDetail"/>
+        </property>
+        <property name="cronExpression">
+            <value>${howbuy.fundproduct}</value>
+            <!-- 0/5 * * * * ? 每隔5秒执行一次-->
+        </property>
+    </bean>
 
-       <bean id="howBuyHistoricalNetJob" class="com.jerry.financecrawler.job.howbuy.HistoricalNetJob" />
-       <bean id="howBuyHistoricalNetJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
-              <property name="group" value="job_work"/>
-              <property name="name" value="job_work_name"/>
-              <!-- 是否允许任务并发执行。当值为false时，表示必须等到前一个线程处理完毕后才再启一个新的线程 -->
-              <property name="concurrent" value="false"/>
-              <property name="targetObject">
-                     <ref bean="howBuyHistoricalNetJob"/>
-              </property>
-              <property name="targetMethod">
-                     <value>execute</value>
-              </property>
-       </bean>
+    <bean id="howBuyHistoricalNetJob" class="com.jerry.financecrawler.job.howbuy.HistoricalNetJob"/>
+    <bean id="howBuyHistoricalNetJobDetail"
+          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="group" value="job_work"/>
+        <property name="name" value="job_work_name"/>
+        <!-- 是否允许任务并发执行。当值为false时，表示必须等到前一个线程处理完毕后才再启一个新的线程 -->
+        <property name="concurrent" value="false"/>
+        <property name="targetObject">
+            <ref bean="howBuyHistoricalNetJob"/>
+        </property>
+        <property name="targetMethod">
+            <value>execute</value>
+        </property>
+    </bean>
 
-       <!--  调度触发器 -->
-       <bean id="howBuyHistoricalNetJobCronTrigger"
-             class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
-              <property name="name" value="work_default_name"/>
-              <property name="group" value="work_default"/>
-              <property name="jobDetail">
-                     <ref bean="howBuyHistoricalNetJobDetail" />
-              </property>
-              <property name="cronExpression">
-                     <value>${howbuy.historicalnet}</value> <!-- 0/5 * * * * ? 每隔5秒执行一次-->
-              </property>
-       </bean>
-       <!-- 调度工厂 -->
-       <bean id="scheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
-              <property name="triggers">
-                     <list>
-                         <!--<ref bean="eastFinanceJobCronTrigger"/>-->
-                         <ref bean="howBuyFundProductJobCronTrigger"/>
-                         <!-- <ref bean="howBuyHistoricalNetJobCronTrigger"/>-->
-                     </list>
-              </property>
-       </bean>
+    <!--  调度触发器 -->
+    <bean id="howBuyHistoricalNetJobCronTrigger"
+          class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="name" value="work_default_name"/>
+        <property name="group" value="work_default"/>
+        <property name="jobDetail">
+            <ref bean="howBuyHistoricalNetJobDetail"/>
+        </property>
+        <property name="cronExpression">
+            <value>${howbuy.historicalnet}</value>
+            <!-- 0/5 * * * * ? 每隔5秒执行一次-->
+        </property>
+    </bean>
+
+    <bean id="howBuyDetailJob" class="com.jerry.financecrawler.job.howbuy.FundProductDetailJob"/>
+    <bean id="howBuyDetailJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="group" value="job_work"/>
+        <property name="name" value="job_work_name"/>
+        <!-- 是否允许任务并发执行。当值为false时，表示必须等到前一个线程处理完毕后才再启一个新的线程 -->
+        <property name="concurrent" value="false"/>
+        <property name="targetObject">
+            <ref bean="howBuyDetailJob"/>
+        </property>
+        <property name="targetMethod">
+            <value>execute</value>
+        </property>
+    </bean>
+
+    <!--  调度触发器 -->
+    <bean id="howBuyDetailJobCronTrigger"
+          class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="name" value="work_default_name"/>
+        <property name="group" value="work_default"/>
+        <property name="jobDetail">
+            <ref bean="howBuyDetailJobDetail"/>
+        </property>
+        <property name="cronExpression">
+            <value>${howbuy.detail}</value>
+            <!-- 0/5 * * * * ? 每隔5秒执行一次-->
+        </property>
+    </bean>
+
+    <!-- 调度工厂 -->
+    <bean id="scheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="triggers">
+            <list>
+                <!--<ref bean="eastFinanceJobCronTrigger"/>-->
+                <!--<ref bean="howBuyFundProductJobCronTrigger"/>
+                <ref bean="howBuyHistoricalNetJobCronTrigger"/>-->
+                <ref bean="howBuyDetailJobCronTrigger"/>
+            </list>
+        </property>
+    </bean>
 
 
-       <!--0 0 12 * * ?  每天12点触发
+    <!--0 0 12 * * ?  每天12点触发
 
-       0 15 10 ? * *  每天10点15分触发
+    0 15 10 ? * *  每天10点15分触发
 
-       0 15 10 * * ?  每天10点15分触发
+    0 15 10 * * ?  每天10点15分触发
 
-       0 15 10 * * ? *  每天10点15分触发
+    0 15 10 * * ? *  每天10点15分触发
 
-       0 15 10 * * ? 2005  2005年每天10点15分触发
+    0 15 10 * * ? 2005  2005年每天10点15分触发
 
-       0 * 14 * * ?  每天下午的 2点到2点59分每分触发
+    0 * 14 * * ?  每天下午的 2点到2点59分每分触发
 
-       0 0/5 14 * * ?  每天下午的 2点到2点59分(整点开始，每隔5分触发)
+    0 0/5 14 * * ?  每天下午的 2点到2点59分(整点开始，每隔5分触发)
 
-       0 0/5 14,18 * * ?  每天下午的 2点到2点59分(整点开始，每隔5分触发)
+    0 0/5 14,18 * * ?  每天下午的 2点到2点59分(整点开始，每隔5分触发)
 
-       每天下午的 18点到18点59分(整点开始，每隔5分触发)
+    每天下午的 18点到18点59分(整点开始，每隔5分触发)
 
-       0 0-5 14 * * ?  每天下午的 2点到2点05分每分触发
+    0 0-5 14 * * ?  每天下午的 2点到2点05分每分触发
 
-       0 10,44 14 ? 3 WED  3月分每周三下午的 2点10分和2点44分触发
+    0 10,44 14 ? 3 WED  3月分每周三下午的 2点10分和2点44分触发
 
-       0 15 10 ? * MON-FRI  从周一到周五每天上午的10点15分触发
+    0 15 10 ? * MON-FRI  从周一到周五每天上午的10点15分触发
 
-       0 15 10 15 * ?  每月15号上午10点15分触发
+    0 15 10 15 * ?  每月15号上午10点15分触发
 
-       0 15 10 L * ?  每月最后一天的10点15分触发
+    0 15 10 L * ?  每月最后一天的10点15分触发
 
-       0 15 10 ? * 6L  每月最后一周的星期五的10点15分触发
+    0 15 10 ? * 6L  每月最后一周的星期五的10点15分触发
 
-       0 15 10 ? * 6L 2002-2005  从2002年到2005年每月最后一周的星期五的10点15分触发
+    0 15 10 ? * 6L 2002-2005  从2002年到2005年每月最后一周的星期五的10点15分触发
 
-       0 15 10 ? * 6#3  每月的第三周的星期五开始触发
+    0 15 10 ? * 6#3  每月的第三周的星期五开始触发
 
-       0 0 12 1/5 * ?  每月的第一个中午开始每隔5天触发一次
+    0 0 12 1/5 * ?  每月的第一个中午开始每隔5天触发一次
 
-       0 11 11 11 11 ?  每年的11月11号 11点11分触发(光棍节)-->
+    0 11 11 11 11 ?  每年的11月11号 11点11分触发(光棍节)-->
 
 </beans>
