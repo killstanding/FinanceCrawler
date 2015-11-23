@@ -1,13 +1,13 @@
 ALTER TABLE `bs_product`
-ADD COLUMN `product_is_crawler`  int(1) NULL DEFAULT 0 COMMENT 'ÊÇ·ñÅÀÈ¡ 1 ÊÇ 0 ²»ÊÇ' AFTER `product_image_url`;
+ADD COLUMN `product_is_crawler`  int(1) NULL DEFAULT 0 COMMENT 'æ˜¯å¦ä¸ºçˆ¬å– 1 æ˜¯ 0 ä¸æ˜¯' AFTER `product_image_url`;
 
 
 ALTER TABLE `bs_networth`
-ADD COLUMN `product_is_crawler`  int(1) NULL DEFAULT 0 COMMENT 'ÊÇ·ñÅÀÈ¡ 1 ÊÇ 0 ²»ÊÇ' AFTER `Chg`;
+ADD COLUMN `product_is_crawler`  int(1) NULL DEFAULT 0 COMMENT 'æ˜¯å¦ä¸ºçˆ¬å– 1 æ˜¯ 0 ä¸æ˜¯' AFTER `Chg`;
 
 
 ALTER TABLE `bs_income`
-ADD COLUMN `product_is_crawler`  int(1) NULL DEFAULT 0 COMMENT 'ÊÇ·ñÅÀÈ¡ 1 ÊÇ 0 ²»ÊÇ' AFTER `I_SINCE_ITS_ESTABLISHMENT`;
+ADD COLUMN `product_is_crawler`  int(1) NULL DEFAULT 0 COMMENT 'æ˜¯å¦ä¸ºçˆ¬å– 1 æ˜¯ 0 ä¸æ˜¯' AFTER `I_SINCE_ITS_ESTABLISHMENT`;
 
 
 
