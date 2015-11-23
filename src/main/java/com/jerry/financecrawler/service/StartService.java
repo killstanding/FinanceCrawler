@@ -10,8 +10,12 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  */
 public class StartService {
     private static final Logger log = LoggerFactory.getLogger(StartService.class);
-    public static void main(String[] args) throws Exception{
-        ApplicationContext context = new ClassPathXmlApplicationContext("classpath:applicationContext*.xml");
+
+    public static void main(String[] args) throws Exception {
+        //os.name:Mac OS X
+        //os.name:Windows Vista
+        //String osName = System.getProperties().getProperty("os.name");
+        ApplicationContext context = new ClassPathXmlApplicationContext("classpath*:applicationContext*.xml");
         log.info("服务已经正常启动...");
     }
 }

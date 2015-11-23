@@ -18,7 +18,7 @@ import java.util.List;
  */
 
 @Repository
-public class FundProductDao implements IFundProductDao {
+public class FundProductDao implements IFundProduct {
 
     @Resource
     private JdbcTemplate jdbcTemplate;

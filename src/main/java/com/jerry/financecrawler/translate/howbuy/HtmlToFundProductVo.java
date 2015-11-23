@@ -60,7 +60,7 @@ public class HtmlToFundProductVo {
                                 Node td = tds.elementAt(j);
                                 String val = td.toPlainTextString();
                                 String fval = StringUtil.filterAllSymbol(val);//过滤特殊符号
-                                System.out.println("fval = [" + fval + "]" + "j = [" + j + "]");
+                                //System.out.println("fval = [" + fval + "]" + "j = [" + j + "]");
                                 //赋值
                                 switch (j) {
                                     case 0:

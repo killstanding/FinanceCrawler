@@ -18,7 +18,7 @@ import java.util.List;
  */
 
 @Repository
-public class HistoricalNetDao implements IHistoricalNetDao {
+public class HistoricalNetDao implements IHistoricalNet {
 
     @Resource
     private JdbcTemplate jdbcTemplate;

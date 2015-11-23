@@ -2,7 +2,7 @@ package com.jerry.financecrawler.job;
 
 import com.jerry.financecrawler.commons.CommonsCharset;
 import com.jerry.financecrawler.commons.CommonsUrl;
-import com.jerry.financecrawler.db.dao.IEastFinanceDao;
+import com.jerry.financecrawler.db.dao.IEastFinance;
 import com.jerry.financecrawler.db.po.EastFinancePo;
 import com.jerry.financecrawler.translate.JsonToEastOBject;
 import com.jerry.financecrawler.visitor.HtmlRequest;
@@ -33,7 +33,7 @@ public class EastFinanceJob implements QuartzJob {
     @Resource
     private JsonToEastOBject jsonToEastOBject;
     @Resource
-    private IEastFinanceDao eastFinanceDao;
+    private IEastFinance eastFinanceDao;
 
     @Override
     public void execute() {

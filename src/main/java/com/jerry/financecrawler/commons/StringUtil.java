@@ -64,7 +64,10 @@ public class StringUtil {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
         sdf.setTimeZone(TimeZone.getTimeZone("GMT+8"));
         return sdf.format(date)+ "-" + str.trim();
-
     }
 
+    public static boolean isEmpty(String str){
+        if (str == null || str.equals("")) return true;
+        return false;
+    }
 }
