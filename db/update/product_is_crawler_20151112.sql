@@ -16,12 +16,10 @@ ALTER TABLE `bs_sterling_ratio`
 ADD COLUMN `product_is_crawler`  int(1) NULL DEFAULT 0 COMMENT '是否为爬取 1 是 0 不是' AFTER `SR_SINCE_ITS_ESTABLISHMENT`;
 ALTER TABLE `bs_productfund`
 ADD COLUMN `product_is_crawler`  int(1) NULL DEFAULT 0 COMMENT '是否为爬取 1 是 0 不是' AFTER `bs_fund`;
-ALTER TABLE `bs_productfund`
-ADD COLUMN `url`  varchar(255) NULL DEFAULT 0 COMMENT '管理人关联url' AFTER `product_is_crawler`;
+
 ALTER TABLE `bs_productfundmanager`
 ADD COLUMN `product_is_crawler`  int(1) NULL DEFAULT 0 COMMENT '是否为爬取 1 是 0 不是' AFTER `bs_fundmanager`;
-ALTER TABLE `bs_productfundmanager`
-ADD COLUMN `url`  varchar(255) NULL DEFAULT 0 COMMENT '基金经理关联url' AFTER `product_is_crawler`;
+
 
 ALTER TABLE `bs_fund`
 ADD COLUMN `product_is_crawler`  int(1) NULL DEFAULT 0 COMMENT '是否为爬取 1 是 0 不是' AFTER `fund_count`;
