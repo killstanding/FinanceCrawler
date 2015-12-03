@@ -3,6 +3,7 @@ package com.jerry.financecrawler.db.dao;
 import com.jerry.financecrawler.db.po.SharpRatioPo;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
+import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
 import java.sql.Connection;
@@ -14,6 +15,7 @@ import java.util.List;
 /**
  * Created by Jerry on 15/11/18.
  */
+@Repository
 public class SharpRatioDao implements ISharpRatio {
 
     @Resource

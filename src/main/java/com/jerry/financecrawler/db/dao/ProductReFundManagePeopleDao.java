@@ -4,6 +4,7 @@ import com.jerry.financecrawler.db.po.CalmarRatioPo;
 import com.jerry.financecrawler.db.po.ProductReFundManagePeoplePo;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
+import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
 import java.sql.Connection;
@@ -15,13 +16,14 @@ import java.util.List;
 /**
  * Created by Jerry on 15/11/18.
  */
+@Repository
 public class ProductReFundManagePeopleDao implements IProductReFundManagePeople {
     @Resource
     private JdbcTemplate jdbcTemplate;
 
     @Override
     public void save(final ProductReFundManagePeoplePo po) {
-        final String sql = "INSERT INTO bs_productfund (id, product_id, bs_fund, product_is_crawler, url) VALUES(?, ?, ?, ?, ?)";
+        final String sql = "INSERT INTO bs_productfund (id, product_id, bs_fund, product_is_crawler ) VALUES(?, ?, ?, ?)";
         jdbcTemplate.update(new PreparedStatementCreator() {
             public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
                 PreparedStatement ps = connection.prepareStatement(sql);
@@ -29,7 +31,6 @@ public class ProductReFundManagePeopleDao implements IProductReFundManagePeople 
                 ps.setInt(2, po.getProduct_id());
                 ps.setInt(3, po.getBs_fund());
                 ps.setInt(4, po.getProduct_is_crawler());
-                ps.setString(5, po.getUrl());
                 return ps;
             }
         });
@@ -43,15 +44,14 @@ public class ProductReFundManagePeopleDao implements IProductReFundManagePeople 
 
     @Override
     public void modify(final ProductReFundManagePeoplePo po) {
-        final String sql = "UPDATE bs_productfund SET product_id = ?, bs_fund = ?, product_is_crawler = ?, url = ? WHERE id = ?";
+        final String sql = "UPDATE bs_productfund SET product_id = ?, bs_fund = ?, product_is_crawler = ? WHERE id = ?";
         jdbcTemplate.update(new PreparedStatementCreator() {
             public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
                 PreparedStatement ps = connection.prepareStatement(sql);
                 ps.setInt(1, po.getProduct_id());
                 ps.setInt(2, po.getBs_fund());
                 ps.setInt(3, po.getProduct_is_crawler());
-                ps.setString(4, po.getUrl());
-                ps.setInt(5, po.getId());
+                ps.setInt(4, po.getId());
                 return ps;
             }
         });
