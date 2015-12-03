@@ -64,9 +64,16 @@ public class HtmlToFundProductVo {
                                 //赋值
                                 switch (j) {
                                     case 0:
-                                        InputTag inputTag = (InputTag) td.getFirstChild();
-                                        String product_code = inputTag.getAttribute("code");
-                                        midVo.setProduct_code(product_code);//基金编号
+                                        NodeList inputs = new NodeList();
+                                        NodeFilter inputFilter = new TagNameFilter("input");
+                                        td.collectInto(inputs, inputFilter);
+                                        if(inputs.size()>0){
+                                            InputTag inputTag = (InputTag)inputs.elementAt(0);
+                                            String product_code = inputTag.getAttribute("code");
+                                            midVo.setProduct_code(product_code);//基金编号
+                                        }else{
+                                            continue;
+                                        }
                                         break;
                                     case 1:
                                         break;
