@@ -1,4 +1,4 @@
-package com.jerry.financecrawler.translate;
+package com.jerry.financecrawler.translate.eastmoney;
 
 import com.jerry.financecrawler.vo.EastFinanceTotalVo;
 import com.jerry.financecrawler.vo.EastFinanceVo;
@@ -13,7 +13,7 @@ import java.util.List;
  * Created by Jerry on 2015/9/18.
  */
 @Component
-public class JsonToEastOBject {
+public class JsonToEastMoneyFundProductVo {
     public EastFinanceTotalVo parseToEastFinanceData(String json) throws Exception{
         EastFinanceTotalVo eastFinanceTotalVo = new EastFinanceTotalVo();
         JSONObject jsonObject = new JSONObject(json);
