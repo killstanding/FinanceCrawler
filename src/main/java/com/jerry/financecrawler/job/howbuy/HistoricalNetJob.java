@@ -8,6 +8,7 @@ import com.jerry.financecrawler.db.dao.IHistoricalNet;
 import com.jerry.financecrawler.db.po.FundProductPo;
 import com.jerry.financecrawler.db.po.HistoricalNetPo;
 import com.jerry.financecrawler.job.QuartzJob;
+import com.jerry.financecrawler.save.SaveData;
 import com.jerry.financecrawler.translate.howbuy.HtmlToHistoricalNetVo;
 import com.jerry.financecrawler.visitor.HtmlRequest;
 import com.jerry.financecrawler.vo.HistoricalNetVo;
@@ -38,7 +39,7 @@ public class HistoricalNetJob implements QuartzJob {
     @Resource
     private IFundProduct fundProductDao;
     @Resource
-    private IHistoricalNet historicalNetDao;
+    private SaveData saveData;
 
     @Override
     public void execute() {
@@ -62,7 +63,7 @@ public class HistoricalNetJob implements QuartzJob {
                     log.error("dealing HowBuyHistoricalNetJob data", ex);
                     ex.printStackTrace();
                 }
-                if(historicalNetList != null) saveHistoricalNetData(historicalNetList);
+                if(historicalNetList != null) saveData.saveHistoricalNetData(historicalNetList);
             }
         }
         log.info("howbuy 历史净值采集服务完成");
@@ -78,24 +79,7 @@ public class HistoricalNetJob implements QuartzJob {
         return historicalNetList;
     }
 
-    private void saveHistoricalNetData(List<HistoricalNetVo> historicalNetList) {
-        if (historicalNetList != null) {
-            Integer maxId = historicalNetDao.getMaxId();
-            if(maxId == null) maxId = 0;
-            for (int i = 0; i < historicalNetList.size(); i++) {
-                HistoricalNetVo midVo = historicalNetList.get(i);
-                HistoricalNetPo midPo = VoToPo.historicalNetVoToPo(midVo);
-                String product_code = midPo.getProduct_code();
-                String net_worth_date = midPo.getNet_worth_date();
-                if (historicalNetDao.findByProductIDAndDate(product_code, net_worth_date) == null) {
-                    if (midPo.getNet_worth_date() != null && !midPo.getNet_worth_date().equals("")) {
-                        midPo.setId(maxId + i + 1);
-                        historicalNetDao.save(midPo);
-                    }//if
-                }//if
-            }//for
-        }//if
-    }
+
 
 
 }
