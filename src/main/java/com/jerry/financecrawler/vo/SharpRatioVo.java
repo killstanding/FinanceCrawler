@@ -11,7 +11,7 @@ public class SharpRatioVo {
     private double SR_NEARLY_THREE_YEARS;//'近三年'
     private double SR_NEARLY_FIVE_YEARS ;//'近5年'
     private double SR_SINCE_ITS_ESTABLISHMENT ;// '成立以来'
-    private int product_is_crawler ;// '是否为爬取 1 是 0 不是'
+    private int product_is_crawler = 1;// '是否为爬取 1 是 0 不是'
 
     public int getProduct_id() {
         return product_id;

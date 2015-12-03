@@ -14,7 +14,7 @@ public class IncomeRankingVo {
     private String IR_NEARLY_TWO_YEARS;//近两年
     private String IR_NEARLY_THREE_YEARS;//近三年
     private String IR_NEARLY_FIVE_YEARS;//近5年
-    private int product_is_crawler;// 是否为爬取 1 是 0 不是
+    private int product_is_crawler = 1;// 是否为爬取 1 是 0 不是
 
     public int getProduct_id() {
         return product_id;

@@ -11,7 +11,7 @@ public class CostRateVo {
     private double CR_MANAGEMENT_RATE; //管理费
     private double CR_HOSTING_RATE ; //托管费
     private double CR_PERFORMANCE_PAY_RATE ; //业绩报酬
-    private int product_is_crawler ; //是否为爬取 1 是 0 不是
+    private int product_is_crawler  = 1 ; //是否为爬取 1 是 0 不是
 
     public int getProduct_id() {
         return product_id;

@@ -18,6 +18,7 @@ public class FundManagerVo {
     private String BS_WORKING_TIME; //  从业时间
     private String BS_WORKING_YEAR; // 从业年限
     private int product_is_crawler ; // 是否为爬取 1 是 0 不是
+    private String detail_url; //地址
 
     public int getFundmanager_id() {
         return fundmanager_id;
@@ -123,6 +124,14 @@ public class FundManagerVo {
         this.product_is_crawler = product_is_crawler;
     }
 
+    public String getDetail_url() {
+        return detail_url;
+    }
+
+    public void setDetail_url(String detail_url) {
+        this.detail_url = detail_url;
+    }
+
     @Override
     public String toString() {
         return "FundManagerVo{" +
@@ -139,6 +148,7 @@ public class FundManagerVo {
                 ", BS_WORKING_TIME='" + BS_WORKING_TIME + '\'' +
                 ", BS_WORKING_YEAR='" + BS_WORKING_YEAR + '\'' +
                 ", product_is_crawler=" + product_is_crawler +
+                ", detail_url='" + detail_url + '\'' +
                 '}';
     }
 }

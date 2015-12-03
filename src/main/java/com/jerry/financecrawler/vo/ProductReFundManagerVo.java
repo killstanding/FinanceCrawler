@@ -7,8 +7,7 @@ public class ProductReFundManagerVo {
     private int id ;
     private int product_id;//产品ID
     private int bs_fundmanager; //基金经理
-    private int product_is_crawler;//是否为爬取 1 是 0 不是
-    private String url; //基金经理关联url
+    private int product_is_crawler = 1;//是否为爬取 1 是 0 不是
 
     public int getId() {
         return id;
@@ -42,22 +41,14 @@ public class ProductReFundManagerVo {
         this.product_is_crawler = product_is_crawler;
     }
 
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
 
     @Override
     public String toString() {
-        return "ProductReFundManager{" +
+        return "ProductReFundManagerVo{" +
                 "id=" + id +
                 ", product_id=" + product_id +
                 ", bs_fundmanager=" + bs_fundmanager +
                 ", product_is_crawler=" + product_is_crawler +
-                ", url='" + url + '\'' +
                 '}';
     }
 }

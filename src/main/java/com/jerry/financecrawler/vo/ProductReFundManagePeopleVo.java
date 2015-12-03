@@ -9,8 +9,7 @@ public class ProductReFundManagePeopleVo {
     private int id ;
     private int product_id;//产品ID
     private int bs_fund; //管理人
-    private int product_is_crawler;//是否为爬取 1 是 0 不是
-    private String url; //管理人关联url
+    private int product_is_crawler  = 1;//是否为爬取 1 是 0 不是
 
     public int getId() {
         return id;
@@ -44,22 +43,13 @@ public class ProductReFundManagePeopleVo {
         this.product_is_crawler = product_is_crawler;
     }
 
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
     @Override
     public String toString() {
-        return "ProductReFundVo{" +
+        return "ProductReFundManagePeopleVo{" +
                 "id=" + id +
                 ", product_id=" + product_id +
                 ", bs_fund=" + bs_fund +
                 ", product_is_crawler=" + product_is_crawler +
-                ", url='" + url + '\'' +
                 '}';
     }
 }

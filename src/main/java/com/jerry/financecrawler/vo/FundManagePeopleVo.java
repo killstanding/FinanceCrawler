@@ -11,8 +11,8 @@ public class FundManagePeopleVo {
     private String fund_assets;// 管理人管理资产
     private int fund_product_no;// 管理人管理产品数量
     private String fund_count;//投研人数
-    private int product_is_crawler;// 是否为爬取 1 是 0 不是
-
+    private int product_is_crawler  = 1;// 是否为爬取 1 是 0 不是
+    private String detail_url; //地址
     public int getId() {
         return id;
     }
@@ -69,9 +69,17 @@ public class FundManagePeopleVo {
         this.product_is_crawler = product_is_crawler;
     }
 
+    public String getDetail_url() {
+        return detail_url;
+    }
+
+    public void setDetail_url(String detail_url) {
+        this.detail_url = detail_url;
+    }
+
     @Override
     public String toString() {
-        return "FundManagePeople{" +
+        return "FundManagePeopleVo{" +
                 "id=" + id +
                 ", fund_name='" + fund_name + '\'' +
                 ", fund_date='" + fund_date + '\'' +
@@ -79,6 +87,7 @@ public class FundManagePeopleVo {
                 ", fund_product_no=" + fund_product_no +
                 ", fund_count='" + fund_count + '\'' +
                 ", product_is_crawler=" + product_is_crawler +
+                ", detail_url='" + detail_url + '\'' +
                 '}';
     }
 }
