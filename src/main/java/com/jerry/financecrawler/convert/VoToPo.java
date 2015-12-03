@@ -13,6 +13,7 @@ public class VoToPo {
         //产品
         FundProductPo po = new FundProductPo();
         po.setId(vo.getId());
+        po.setFincode(vo.getFincode());
         po.setProduct_name(vo.getProduct_name()); //产品名称
         po.setProduct_shortname(vo.getProduct_shortname());//产品简称
         po.setProduct_code(vo.getProduct_code());//产品代码
