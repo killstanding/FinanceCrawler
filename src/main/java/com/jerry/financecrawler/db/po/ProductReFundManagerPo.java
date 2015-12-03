@@ -35,7 +35,6 @@ public class ProductReFundManagerPo extends ProductReFundManagerVo implements Ro
         re.setProduct_id(rs.getInt("product_id"));// 产品ID
         re.setBs_fundmanager(rs.getInt("bs_fundmanager"));// 基金经理
         re.setProduct_is_crawler(rs.getInt("product_is_crawler")); //是否为爬取 1 是 0 不是
-        re.setUrl(rs.getString("url"));// 管理人关联url
         return re;
     }
 }
