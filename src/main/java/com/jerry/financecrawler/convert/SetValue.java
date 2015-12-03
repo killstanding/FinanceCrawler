@@ -9,8 +9,12 @@ import com.jerry.financecrawler.vo.*;
  */
 public class SetValue {
 
+
+
+
     //产品
     public static void setFundProductPoValue(FundProductPo po, FundProductVo vo) {
+        po.setFincode(vo.getFincode());
         if (StringUtil.isEmpty(po.getProduct_name()))
             po.setProduct_name(vo.getProduct_name()); //产品名称
         if (StringUtil.isEmpty(po.getProduct_shortname()))
@@ -87,7 +91,7 @@ public class SetValue {
     //收益
     public static void setIncomePoValue(IncomePo po, IncomeVo vo) {
 
-        if (StringUtil.isEmpty(po.getI_UPDATE_DATE())) {
+        if (StringUtil.isEmpty(po.getI_UPDATE_DATE()) || !StringUtil.isEmpty(vo.getI_UPDATE_DATE()) ) {
             if (StringUtil.isEmpty(vo.getI_UPDATE_DATE())) {
                 po.setI_UPDATE_DATE("");
             } else {
@@ -95,87 +99,96 @@ public class SetValue {
             }
 
         }
-        if (po.getI_LATEST_NET_WORTH() == 0)
+        if (po.getI_LATEST_NET_WORTH() == 0 || vo.getI_LATEST_NET_WORTH() != 0)
             po.setI_LATEST_NET_WORTH(vo.getI_LATEST_NET_WORTH());// 最新净值
-        if (po.getI_SINCE_THIS_YEAR() == 0)
+        if (po.getI_SINCE_THIS_YEAR() == 0 || vo.getI_SINCE_THIS_YEAR() != 0)
             po.setI_SINCE_THIS_YEAR(vo.getI_SINCE_THIS_YEAR());// 今年以来
-        if (po.getI_NEARLY_A_MONTH() == 0)
+        if (po.getI_NEARLY_A_MONTH() == 0 || vo.getI_NEARLY_A_MONTH() != 0)
             po.setI_NEARLY_A_MONTH(vo.getI_NEARLY_A_MONTH());// 近一月
-        if (po.getI_NEARLY_THREE_MONTHS() == 0)
+        if (po.getI_NEARLY_THREE_MONTHS() == 0 || vo.getI_NEARLY_THREE_MONTHS() != 0)
             po.setI_NEARLY_THREE_MONTHS(vo.getI_NEARLY_THREE_MONTHS());// 近三月
-        if (po.getI_NEARLY_HALF_A_YEAR() == 0)
+        if (po.getI_NEARLY_HALF_A_YEAR() == 0 || vo.getI_NEARLY_HALF_A_YEAR() != 0)
             po.setI_NEARLY_HALF_A_YEAR(vo.getI_NEARLY_HALF_A_YEAR());//近半年
-        if (po.getI_NEARLY_A_YEAR() == 0)
+        if (po.getI_NEARLY_A_YEAR() == 0 || vo.getI_NEARLY_A_YEAR() != 0)
             po.setI_NEARLY_A_YEAR(vo.getI_NEARLY_A_YEAR());// 近一年
-        if (po.getI_NEARLY_TWO_YEARS() == 0)
+        if (po.getI_NEARLY_TWO_YEARS() == 0 || vo.getI_NEARLY_TWO_YEARS() != 0)
             po.setI_NEARLY_TWO_YEARS(vo.getI_NEARLY_TWO_YEARS());//近两年
-        if (po.getI_NEARLY_THREE_YEARS() == 0)
+        if (po.getI_NEARLY_THREE_YEARS() == 0 || vo.getI_NEARLY_THREE_YEARS() != 0)
             po.setI_NEARLY_THREE_YEARS(vo.getI_NEARLY_THREE_YEARS());//近三年
-        if (po.getI_NEARLY_FIVE_YEARS() == 0)
+        if (po.getI_NEARLY_FIVE_YEARS() == 0 || vo.getI_NEARLY_FIVE_YEARS() != 0)
             po.setI_NEARLY_FIVE_YEARS(vo.getI_NEARLY_FIVE_YEARS());//近5年
-        if (po.getI_SINCE_ITS_ESTABLISHMENT() == 0)
+        if (po.getI_SINCE_ITS_ESTABLISHMENT() == 0 || vo.getI_SINCE_ITS_ESTABLISHMENT() != 0)
             po.setI_SINCE_ITS_ESTABLISHMENT(vo.getI_SINCE_ITS_ESTABLISHMENT());//成立以来
-
+        if (po.getProduct_is_crawler() == 0)
+            po.setProduct_is_crawler(vo.getProduct_is_crawler()); //是否为爬取 1 是 0 不是
     }
 
     //年化波动率
     public static void setAnnualFluctuationRatePoValue(AnnualFluctuationRatePo po, AnnualFluctuationRateVo vo) {
-        if (po.getFR_NEARLY_A_YEAR() == 0)
+        if (po.getFR_NEARLY_A_YEAR() == 0 || vo.getFR_NEARLY_A_YEAR() != 0)
             po.setFR_NEARLY_A_YEAR(vo.getFR_NEARLY_A_YEAR());//近一年
-        if (po.getFR_NEARLY_TWO_YEARS() == 0)
+        if (po.getFR_NEARLY_TWO_YEARS() == 0 || vo.getFR_NEARLY_TWO_YEARS() != 0)
             po.setFR_NEARLY_TWO_YEARS(vo.getFR_NEARLY_TWO_YEARS());//近两年
-        if (po.getFR_NEARLY_THREE_YEARS() == 0)
+        if (po.getFR_NEARLY_THREE_YEARS() == 0 || vo.getFR_NEARLY_THREE_YEARS() != 0)
             po.setFR_NEARLY_THREE_YEARS(vo.getFR_NEARLY_THREE_YEARS());//近三年
-        if (po.getFR_NEARLY_FIVE_YEARS() == 0)
+        if (po.getFR_NEARLY_FIVE_YEARS() == 0 || vo.getFR_NEARLY_FIVE_YEARS() != 0)
             po.setFR_NEARLY_FIVE_YEARS(vo.getFR_NEARLY_FIVE_YEARS());//近5年
-        if (po.getFR_SINCE_ITS_ESTABLISHMENT() == 0)
+        if (po.getFR_SINCE_ITS_ESTABLISHMENT() == 0 || vo.getFR_SINCE_ITS_ESTABLISHMENT() != 0)
             po.setFR_SINCE_ITS_ESTABLISHMENT(vo.getFR_SINCE_ITS_ESTABLISHMENT());//成立以来
-        if (po.getFR_MAXIMUM_CONTINUOUS_EARNINGS_DAYS() == 0)
+        if (po.getFR_MAXIMUM_CONTINUOUS_EARNINGS_DAYS() == 0 || vo.getFR_MAXIMUM_CONTINUOUS_EARNINGS_DAYS() != 0)
             po.setFR_MAXIMUM_CONTINUOUS_EARNINGS_DAYS(vo.getFR_MAXIMUM_CONTINUOUS_EARNINGS_DAYS());//最多连续盈利天数
-        if (po.getFR_MAXIMUM_CONTINUOUS_LOSS_DAYS() == 0)
+        if (po.getFR_MAXIMUM_CONTINUOUS_LOSS_DAYS() == 0 || vo.getFR_MAXIMUM_CONTINUOUS_LOSS_DAYS() != 0)
             po.setFR_MAXIMUM_CONTINUOUS_LOSS_DAYS(vo.getFR_MAXIMUM_CONTINUOUS_LOSS_DAYS());//最多连续亏损天数
+        if (po.getProduct_is_crawler() == 0)
+            po.setProduct_is_crawler(vo.getProduct_is_crawler()); //是否为爬取 1 是 0 不是
     }
 
     //年化收益率
     public static void setAnnualizedReturnRatePoValue(AnnualizedReturnRatePo po, AnnualizedReturnRateVo vo) {
-        if (po.getRR_NEARLY_A_YEAR() == 0)
+        if (po.getRR_NEARLY_A_YEAR() == 0 || vo.getRR_NEARLY_A_YEAR() != 0)
             po.setRR_NEARLY_A_YEAR(vo.getRR_NEARLY_A_YEAR());//近一年
-        if (po.getRR_NEARLY_TWO_YEARS() == 0)
+        if (po.getRR_NEARLY_TWO_YEARS() == 0 || vo.getRR_NEARLY_TWO_YEARS() != 0)
             po.setRR_NEARLY_TWO_YEARS(vo.getRR_NEARLY_TWO_YEARS());//近两年
-        if (po.getRR_NEARLY_THREE_YEARS() == 0)
+        if (po.getRR_NEARLY_THREE_YEARS() == 0 || vo.getRR_NEARLY_THREE_YEARS() != 0)
             po.setRR_NEARLY_THREE_YEARS(vo.getRR_NEARLY_THREE_YEARS());//近三年
-        if (po.getRR_NEARLY_FIVE_YEARS() == 0)
+        if (po.getRR_NEARLY_FIVE_YEARS() == 0 || vo.getRR_NEARLY_FIVE_YEARS() != 0)
             po.setRR_NEARLY_FIVE_YEARS(vo.getRR_NEARLY_FIVE_YEARS());//近5年
-        if (po.getRR_SINCE_ITS_ESTABLISHMENT() == 0)
+        if (po.getRR_SINCE_ITS_ESTABLISHMENT() == 0 || vo.getRR_SINCE_ITS_ESTABLISHMENT() != 0)
             po.setRR_SINCE_ITS_ESTABLISHMENT(vo.getRR_SINCE_ITS_ESTABLISHMENT());//成立以来
+        if (po.getProduct_is_crawler() == 0)
+            po.setProduct_is_crawler(vo.getProduct_is_crawler()); //是否为爬取 1 是 0 不是
     }
 
     //CALMAR比率
     public static void setCalmarRatioPoValue(CalmarRatioPo po, CalmarRatioVo vo) {
-        if (po.getCR_NEARLY_A_YEAR() == 0)
+        if (po.getCR_NEARLY_A_YEAR() == 0 || vo.getCR_NEARLY_A_YEAR() != 0)
             po.setCR_NEARLY_A_YEAR(vo.getCR_NEARLY_A_YEAR());//近一年
-        if (po.getCR_NEARLY_TWO_YEARS() == 0)
+        if (po.getCR_NEARLY_TWO_YEARS() == 0 || vo.getCR_NEARLY_TWO_YEARS() != 0)
             po.setCR_NEARLY_TWO_YEARS(vo.getCR_NEARLY_TWO_YEARS());//近两年
-        if (po.getCR_NEARLY_THREE_YEARS() == 0)
+        if (po.getCR_NEARLY_THREE_YEARS() == 0 || vo.getCR_NEARLY_THREE_YEARS() != 0)
             po.setCR_NEARLY_THREE_YEARS(vo.getCR_NEARLY_THREE_YEARS());//近三年
-        if (po.getCR_NEARLY_FIVE_YEARS() == 0)
+        if (po.getCR_NEARLY_FIVE_YEARS() == 0 || vo.getCR_NEARLY_FIVE_YEARS() != 0)
             po.setCR_NEARLY_FIVE_YEARS(vo.getCR_NEARLY_FIVE_YEARS());//近5年
-        if (po.getCR_SINCE_ITS_ESTABLISHMENT() == 0)
+        if (po.getCR_SINCE_ITS_ESTABLISHMENT() == 0 || vo.getCR_SINCE_ITS_ESTABLISHMENT() != 0)
             po.setCR_SINCE_ITS_ESTABLISHMENT(vo.getCR_SINCE_ITS_ESTABLISHMENT());//成立以来
+        if (po.getProduct_is_crawler() == 0)
+            po.setProduct_is_crawler(vo.getProduct_is_crawler()); //是否为爬取 1 是 0 不是
     }
 
     //费用费率
     public static void setCostRatePoValue(CostRatePo po, CostRateVo vo) {
-        if (po.getCR_SUBSCRIPTION_RATE() == 0)
+        if (po.getCR_SUBSCRIPTION_RATE() == 0 || vo.getCR_SUBSCRIPTION_RATE() != 0)
             po.setCR_SUBSCRIPTION_RATE(vo.getCR_SUBSCRIPTION_RATE());//认购费率
-        if (po.getCR_REDEMPTION_RATE() == 0)
+        if (po.getCR_REDEMPTION_RATE() == 0 || vo.getCR_REDEMPTION_RATE() != 0)
             po.setCR_REDEMPTION_RATE(vo.getCR_REDEMPTION_RATE());//赎回费
-        if (po.getCR_MANAGEMENT_RATE() == 0)
+        if (po.getCR_MANAGEMENT_RATE() == 0 || vo.getCR_MANAGEMENT_RATE() != 0)
             po.setCR_MANAGEMENT_RATE(vo.getCR_MANAGEMENT_RATE());//管理费
-        if (po.getCR_HOSTING_RATE() == 0)
+        if (po.getCR_HOSTING_RATE() == 0 || vo.getCR_HOSTING_RATE() != 0)
             po.setCR_HOSTING_RATE(vo.getCR_HOSTING_RATE());//托管费
-        if (po.getCR_PERFORMANCE_PAY_RATE() == 0)
+        if (po.getCR_PERFORMANCE_PAY_RATE() == 0 || vo.getCR_PERFORMANCE_PAY_RATE() != 0)
             po.setCR_PERFORMANCE_PAY_RATE(vo.getCR_PERFORMANCE_PAY_RATE());//业绩报酬
+        if (po.getProduct_is_crawler() == 0)
+            po.setProduct_is_crawler(vo.getProduct_is_crawler()); //是否为爬取 1 是 0 不是
     }
 
     //管理人
@@ -190,6 +203,8 @@ public class SetValue {
             po.setFund_product_no(vo.getFund_product_no());//管理人管理产品
         if (StringUtil.isEmpty(po.getFund_count()))
             po.setFund_count(vo.getFund_count());//投研人数
+        if (po.getProduct_is_crawler() == 0)
+            po.setProduct_is_crawler(vo.getProduct_is_crawler()); //是否为爬取 1 是 0 不是
     }
 
     //基金经理
@@ -200,9 +215,9 @@ public class SetValue {
             po.setBS_FUND_MANAGEMENT_START_DATE(vo.getBS_FUND_MANAGEMENT_START_DATE());//基金起始管理日期
         if (StringUtil.isEmpty(po.getBS_FUND_MANAGEMENT_END_DATE()))
             po.setBS_FUND_MANAGEMENT_END_DATE(vo.getBS_FUND_MANAGEMENT_END_DATE());//基金结束管理日期
-        if (po.getBS_MANAGEMENT_FUND_NUM() == 0)
+        if (po.getBS_MANAGEMENT_FUND_NUM() == 0 || vo.getBS_MANAGEMENT_FUND_NUM() != 0)
             po.setBS_MANAGEMENT_FUND_NUM(vo.getBS_MANAGEMENT_FUND_NUM());//管理基金数
-        if (po.getBS_HISTORICAL_MANANGEMENT_FUND_NUM() == 0)
+        if (po.getBS_HISTORICAL_MANANGEMENT_FUND_NUM() == 0 || vo.getBS_HISTORICAL_MANANGEMENT_FUND_NUM() != 0)
             po.setBS_HISTORICAL_MANANGEMENT_FUND_NUM(vo.getBS_HISTORICAL_MANANGEMENT_FUND_NUM());//历史管理基金
         if (StringUtil.isEmpty(po.getBS_UNIVERSITY()))
             po.setBS_UNIVERSITY(vo.getBS_UNIVERSITY());//毕业院校
@@ -214,68 +229,78 @@ public class SetValue {
             po.setBS_WORKING_TIME(vo.getBS_WORKING_TIME());//从业时间
         if (StringUtil.isEmpty(po.getBS_WORKING_YEAR()))
             po.setBS_WORKING_YEAR(vo.getBS_WORKING_YEAR());//从业年限
+        if (po.getProduct_is_crawler() == 0)
+            po.setProduct_is_crawler(vo.getProduct_is_crawler()); //是否为爬取 1 是 0 不是
     }
 
     //收益排名
     public static void setIncomeRankingPoValue(IncomeRankingPo po, IncomeRankingVo vo) {
-        if (StringUtil.isEmpty(po.getIR_SINCE_THIS_YEAR()))
+        if (StringUtil.isEmpty(po.getIR_SINCE_THIS_YEAR()) || StringUtil.isEmpty(vo.getIR_SINCE_THIS_YEAR()))
             po.setIR_SINCE_THIS_YEAR(vo.getIR_SINCE_THIS_YEAR());// 今年以来
-        if (StringUtil.isEmpty(po.getIR_NEARLY_A_MONTH()))
+        if (StringUtil.isEmpty(po.getIR_NEARLY_A_MONTH()) || StringUtil.isEmpty(vo.getIR_NEARLY_A_MONTH()))
             po.setIR_NEARLY_A_MONTH(vo.getIR_NEARLY_A_MONTH());// 近一月
-        if (StringUtil.isEmpty(po.getIR_NEARLY_THREE_MONTHS()))
+        if (StringUtil.isEmpty(po.getIR_NEARLY_THREE_MONTHS()) || StringUtil.isEmpty(vo.getIR_NEARLY_THREE_MONTHS()))
             po.setIR_NEARLY_THREE_MONTHS(vo.getIR_NEARLY_THREE_MONTHS());// 近三月
-        if (StringUtil.isEmpty(po.getIR_NEARLY_HALF_A_YEAR()))
+        if (StringUtil.isEmpty(po.getIR_NEARLY_HALF_A_YEAR()) || StringUtil.isEmpty(vo.getIR_NEARLY_HALF_A_YEAR()))
             po.setIR_NEARLY_HALF_A_YEAR(vo.getIR_NEARLY_HALF_A_YEAR());//近半年
-        if (StringUtil.isEmpty(po.getIR_NEARLY_A_YEAR()))
+        if (StringUtil.isEmpty(po.getIR_NEARLY_A_YEAR()) || StringUtil.isEmpty(vo.getIR_NEARLY_A_YEAR()))
             po.setIR_NEARLY_A_YEAR(vo.getIR_NEARLY_A_YEAR());// 近一年
-        if (StringUtil.isEmpty(po.getIR_NEARLY_TWO_YEARS()))
+        if (StringUtil.isEmpty(po.getIR_NEARLY_TWO_YEARS()) || StringUtil.isEmpty(vo.getIR_NEARLY_TWO_YEARS()))
             po.setIR_NEARLY_TWO_YEARS(vo.getIR_NEARLY_TWO_YEARS());//近两年
-        if (StringUtil.isEmpty(po.getIR_NEARLY_THREE_YEARS()))
+        if (StringUtil.isEmpty(po.getIR_NEARLY_THREE_YEARS()) || StringUtil.isEmpty(vo.getIR_NEARLY_THREE_YEARS()))
             po.setIR_NEARLY_THREE_YEARS(vo.getIR_NEARLY_THREE_YEARS());//近三年
-        if (StringUtil.isEmpty(po.getIR_NEARLY_FIVE_YEARS()))
+        if (StringUtil.isEmpty(po.getIR_NEARLY_FIVE_YEARS()) || StringUtil.isEmpty(vo.getIR_NEARLY_FIVE_YEARS()))
             po.setIR_NEARLY_FIVE_YEARS(vo.getIR_NEARLY_FIVE_YEARS());//近5年
+        if (po.getProduct_is_crawler() == 0)
+            po.setProduct_is_crawler(vo.getProduct_is_crawler()); //是否为爬取 1 是 0 不是
     }
 
 
     //最大回撤
     public static void setMaximumReturnPoValue(MaximumReturnPo po, MaximumReturnVo vo) {
-        if (po.getMR_NEARLY_A_YEAR() == 0)
+        if (po.getMR_NEARLY_A_YEAR() == 0 || vo.getMR_NEARLY_A_YEAR() != 0)
             po.setMR_NEARLY_A_YEAR(vo.getMR_NEARLY_A_YEAR());//近一年
-        if (po.getMR_NEARLY_TWO_YEARS() == 0)
+        if (po.getMR_NEARLY_TWO_YEARS() == 0 || vo.getMR_NEARLY_TWO_YEARS() != 0)
             po.setMR_NEARLY_TWO_YEARS(vo.getMR_NEARLY_TWO_YEARS());//近两年
-        if (po.getMR_NEARLY_THREE_YEARS() == 0)
+        if (po.getMR_NEARLY_THREE_YEARS() == 0 || vo.getMR_NEARLY_THREE_YEARS() != 0)
             po.setMR_NEARLY_THREE_YEARS(vo.getMR_NEARLY_THREE_YEARS());//近三年
-        if (po.getMR_NEARLY_FIVE_YEARS() == 0)
+        if (po.getMR_NEARLY_FIVE_YEARS() == 0 || vo.getMR_NEARLY_FIVE_YEARS() != 0)
             po.setMR_NEARLY_FIVE_YEARS(vo.getMR_NEARLY_FIVE_YEARS());//近5年
-        if (po.getMR_SINCE_ITS_ESTABLISHMENT() == 0)
+        if (po.getMR_SINCE_ITS_ESTABLISHMENT() == 0 || vo.getMR_SINCE_ITS_ESTABLISHMENT() != 0)
             po.setMR_SINCE_ITS_ESTABLISHMENT(vo.getMR_SINCE_ITS_ESTABLISHMENT());//成立以来
+        if (po.getProduct_is_crawler() == 0)
+            po.setProduct_is_crawler(vo.getProduct_is_crawler()); //是否为爬取 1 是 0 不是
     }
 
     //夏普比率
     public static void setSharpRatioPoValue(SharpRatioPo po, SharpRatioVo vo) {
-        if (po.getSR_NEARLY_A_YEAR() == 0)
+        if (po.getSR_NEARLY_A_YEAR() == 0 || vo.getSR_NEARLY_A_YEAR() != 0)
             po.setSR_NEARLY_A_YEAR(vo.getSR_NEARLY_A_YEAR());//近一年
-        if (po.getSR_NEARLY_TWO_YEARS() == 0)
+        if (po.getSR_NEARLY_TWO_YEARS() == 0 || vo.getSR_NEARLY_TWO_YEARS() != 0)
             po.setSR_NEARLY_TWO_YEARS(vo.getSR_NEARLY_TWO_YEARS());//近两年
-        if (po.getSR_NEARLY_THREE_YEARS() == 0)
+        if (po.getSR_NEARLY_THREE_YEARS() == 0 || vo.getSR_NEARLY_THREE_YEARS() != 0)
             po.setSR_NEARLY_THREE_YEARS(vo.getSR_NEARLY_THREE_YEARS());//近三年
-        if (po.getSR_NEARLY_FIVE_YEARS() == 0)
+        if (po.getSR_NEARLY_FIVE_YEARS() == 0 || vo.getSR_NEARLY_FIVE_YEARS() != 0)
             po.setSR_NEARLY_FIVE_YEARS(vo.getSR_NEARLY_FIVE_YEARS());//近5年
-        if (po.getSR_SINCE_ITS_ESTABLISHMENT() == 0)
+        if (po.getSR_SINCE_ITS_ESTABLISHMENT() == 0 || vo.getSR_SINCE_ITS_ESTABLISHMENT() != 0)
             po.setSR_SINCE_ITS_ESTABLISHMENT(vo.getSR_SINCE_ITS_ESTABLISHMENT());//成立以来
+        if (po.getProduct_is_crawler() == 0)
+            po.setProduct_is_crawler(vo.getProduct_is_crawler()); //是否为爬取 1 是 0 不是
     }
 
     //Sterling比率
     public static void setSterlingRatioPoValue(SterlingRatioPo po, SterlingRatioVo vo) {
-        if (po.getSR_NEARLY_A_YEAR() == 0)
+        if (po.getSR_NEARLY_A_YEAR() == 0 || vo.getSR_NEARLY_A_YEAR() != 0)
             po.setSR_NEARLY_A_YEAR(vo.getSR_NEARLY_A_YEAR());//近一年
-        if (po.getSR_NEARLY_TWO_YEARS() == 0)
+        if (po.getSR_NEARLY_TWO_YEARS() == 0 || vo.getSR_NEARLY_TWO_YEARS() != 0)
             po.setSR_NEARLY_TWO_YEARS(vo.getSR_NEARLY_TWO_YEARS());//近两年
-        if (po.getSR_NEARLY_THREE_YEARS() == 0)
+        if (po.getSR_NEARLY_THREE_YEARS() == 0 || vo.getSR_NEARLY_THREE_YEARS() != 0)
             po.setSR_NEARLY_THREE_YEARS(vo.getSR_NEARLY_THREE_YEARS());//近三年
-        if (po.getSR_NEARLY_FIVE_YEARS() == 0)
+        if (po.getSR_NEARLY_FIVE_YEARS() == 0 || vo.getSR_NEARLY_FIVE_YEARS() != 0)
             po.setSR_NEARLY_FIVE_YEARS(vo.getSR_NEARLY_FIVE_YEARS());//近5年
-        if (po.getSR_SINCE_ITS_ESTABLISHMENT() == 0)
+        if (po.getSR_SINCE_ITS_ESTABLISHMENT() == 0 || vo.getSR_SINCE_ITS_ESTABLISHMENT() != 0)
             po.setSR_SINCE_ITS_ESTABLISHMENT(vo.getSR_SINCE_ITS_ESTABLISHMENT());//成立以来
+        if (po.getProduct_is_crawler() == 0)
+            po.setProduct_is_crawler(vo.getProduct_is_crawler()); //是否为爬取 1 是 0 不是
     }
 }
