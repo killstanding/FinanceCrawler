@@ -19,6 +19,7 @@ import java.util.List;
  */
 @Component
 public class HtmlToHistoricalNetVo {
+
     public List<HistoricalNetVo> parseToHistoricalNetData(String html, int product_id, String product_code) throws Exception{
         //System.out.println("html = [" + html + "]");
         List<HistoricalNetVo> resultList = null;
