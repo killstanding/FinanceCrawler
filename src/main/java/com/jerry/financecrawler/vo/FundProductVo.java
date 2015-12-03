@@ -6,6 +6,7 @@ package com.jerry.financecrawler.vo;
  */
 public class FundProductVo {
     private int id;
+    private String fincode; //基金编号
     private String product_name;  //产品名称
     private String product_shortname;//产品简称
     private String product_code;//产品代码
@@ -43,6 +44,15 @@ public class FundProductVo {
     private String product_image_url;    //图片url
     private int product_is_crawler = 1; //是否为爬取 1 是 0 不是
     private IncomeVo incomeVo;
+
+    public String getFincode() {
+        return fincode;
+    }
+
+    public void setFincode(String fincode) {
+        this.fincode = fincode;
+    }
+
     public int getId() {
         return id;
     }
@@ -351,6 +361,7 @@ public class FundProductVo {
     public String toString() {
         return "FundProductVo{" +
                 "id=" + id +
+                ", fincode='" + fincode + '\'' +
                 ", product_name='" + product_name + '\'' +
                 ", product_shortname='" + product_shortname + '\'' +
                 ", product_code='" + product_code + '\'' +
