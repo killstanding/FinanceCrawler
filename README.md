@@ -21,8 +21,8 @@
 
 ### 关键技术
 
-* 东方财富数据为json  采用org.json进行翻译
-* howbuy 数据为html  采用org.htmlparser进行翻译
+* json  采用org.json进行翻译
+* html  采用org.htmlparser进行翻译
 * 定时任务           采用org.quartz与spring相结合进行处理
 
 ### help
