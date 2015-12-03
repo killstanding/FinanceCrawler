@@ -20,6 +20,8 @@ public class StringUtil {
 
     public static final String SYMBOL_BACK_BRACKET = "）";
 
+    public static final String SYMBOL_EQUAL = "=";
+
 
 
 
@@ -35,7 +37,7 @@ public class StringUtil {
     }
 
     public static double StringToDouble(String str) throws ClassCastException{
-
+        if(str.equals("")) return 0;
         return Double.parseDouble(str);
     }
 
@@ -69,5 +71,9 @@ public class StringUtil {
     public static boolean isEmpty(String str){
         if (str == null || str.equals("")) return true;
         return false;
+    }
+
+    public static String subJsonStrBySymbol(String data, String symbol){
+        return data.substring(data.indexOf(symbol) + 1, data.length());
     }
 }
