@@ -3,11 +3,14 @@ package com.jerry.financecrawler.job.howbuy;
 import com.jerry.financecrawler.commons.CommonsCharset;
 import com.jerry.financecrawler.commons.CommonsUrl;
 import com.jerry.financecrawler.convert.PoToVo;
-import com.jerry.financecrawler.db.dao.IFundProduct;
+import com.jerry.financecrawler.db.dao.*;
 import com.jerry.financecrawler.db.po.FundProductPo;
 import com.jerry.financecrawler.job.QuartzJob;
+import com.jerry.financecrawler.save.SaveData;
+import com.jerry.financecrawler.translate.howbuy.HtmlToIncomeRankingVo;
+import com.jerry.financecrawler.translate.howbuy.HtmlToRiskAssessmentIndexVo;
 import com.jerry.financecrawler.visitor.HtmlRequest;
-import com.jerry.financecrawler.vo.FundProductVo;
+import com.jerry.financecrawler.vo.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,6 +35,14 @@ public class FundProductDetailJob implements QuartzJob {
     private HtmlRequest htmlRequest;
     @Resource
     private IFundProduct fundProductDao;
+    @Resource
+    private SaveData saveData;
+
+
+    @Resource
+    private HtmlToRiskAssessmentIndexVo htmlToRiskAssessmentIndexVo;
+    @Resource
+    private HtmlToIncomeRankingVo htmlToIncomeRankingVo;
 
     @Override
     public void execute() {
@@ -45,7 +56,7 @@ public class FundProductDetailJob implements QuartzJob {
                 List<FundProductVo> fundProductVoList = null;
                 try {
                     if (product_code != null && !product_code.equals("")) {
-                        fundProductVoList = getHtmlData(fundProduct);
+                        getHtmlData(fundProduct);
                     } else {
                         log.error(fundProduct.getProduct_name() + "(" + fundProduct.getProduct_shortname() + ")的 product_code为空");
                     }
@@ -54,23 +65,69 @@ public class FundProductDetailJob implements QuartzJob {
                     log.error("dealing FundProductDetailJob data", ex);
                     ex.printStackTrace();
                 }
-                if(fundProductVoList != null) saveFundProductDetailData(fundProductVoList);
             }
         }
         log.info("howbuy 产品详情采集服务完成");
     }
-    private List<FundProductVo> getHtmlData(FundProductPo po) throws Exception {
+
+    private void getHtmlData(FundProductPo po) throws Exception {
         String url = CommonsUrl.getUrlByCode(baseUrl, po.getProduct_code());
         String html = htmlRequest.getHtmlData(url, charset);
         FundProductVo fundProductVo = PoToVo.fundProductPoToVo(po);
-        List<FundProductVo> historicalNetList = null;
+        int product_id = fundProductVo.getId();
+
         if (!html.equals("")) {
-            //historicalNetList = htmlToHistoricalNetVo.parseToHistoricalNetData(html, product_id, product_code);
+            //解析风险评估指标
+            RiskAssessmentIndexVo riskAssessmentIndexVo = htmlToRiskAssessmentIndexVo.parseToRiskAssessmentIndexData(html, product_id);
+
+            //保存风险评估指标
+            saveRiskAssessmentIndexData(riskAssessmentIndexVo, product_id);
+
+            //解析同类排名
+            IncomeRankingVo incomeRankingVo = htmlToIncomeRankingVo.parseToIncomeRankingData(html, product_id);
+
+            saveIncomeRankingData(incomeRankingVo, product_id);
+
+            //解析费用费率
+
+
+            //解析产品字段
+
+
         }
-        return historicalNetList;
     }
-    private void saveFundProductDetailData(List<FundProductVo> fundProductVoList) {
+
+    //风险评估指标
+    private void saveRiskAssessmentIndexData(RiskAssessmentIndexVo riskAssessmentIndexVo, int product_id) throws Exception {
+        //年化收益率
+        AnnualizedReturnRateVo annualizedReturnRateVo = riskAssessmentIndexVo.getAnnualizedReturnRateVo();
+        if (annualizedReturnRateVo != null) saveData.saveAnnualizedReturnRateData(annualizedReturnRateVo, product_id);
+
+        //年化波动率
+        AnnualFluctuationRateVo annualFluctuationRateVo = riskAssessmentIndexVo.getAnnualFluctuationRateVo();
+        if (annualFluctuationRateVo != null)
+            saveData.saveAnnualFluctuationRateData(annualFluctuationRateVo, product_id);
+
+        //最大回撤
+        MaximumReturnVo maximumReturnVo = riskAssessmentIndexVo.getMaximumReturnVo();
+        if (maximumReturnVo != null) saveData.saveMaximumReturnData(maximumReturnVo, product_id);
+
+        //夏普比率
+        SharpRatioVo sharpRatioVo = riskAssessmentIndexVo.getSharpRatioVo();
+        if (sharpRatioVo != null) saveData.saveSharpRatioData(sharpRatioVo, product_id);
+
+        //CALMAR比率
+        CalmarRatioVo calmarRatioVo = riskAssessmentIndexVo.getCalmarRatioVo();
+        if (calmarRatioVo != null) saveData.saveCalmarRatioData(calmarRatioVo, product_id);
+
+        //Sterling比率
+        SterlingRatioVo sterlingRatioVo = riskAssessmentIndexVo.getSterlingRatioVo();
+        if (sterlingRatioVo != null) saveData.saveSterlingRatioData(sterlingRatioVo, product_id);
 
     }
 
+    //收益排名
+    private void saveIncomeRankingData(IncomeRankingVo incomeRankingVo, int product_id) throws Exception {
+        if(incomeRankingVo != null) saveData.saveIncomeRankingData(incomeRankingVo, product_id);
+    }
 }
