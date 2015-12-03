@@ -3,8 +3,10 @@ package com.jerry.financecrawler.job.eastmoney;
 import com.jerry.financecrawler.commons.CommonsCharset;
 import com.jerry.financecrawler.commons.CommonsUrl;
 import com.jerry.financecrawler.commons.StringUtil;
+import com.jerry.financecrawler.db.po.FundProductPo;
 import com.jerry.financecrawler.job.QuartzJob;
 import com.jerry.financecrawler.save.SaveData;
+import com.jerry.financecrawler.translate.eastmoney.HtmlToEastMoneyDetailVo;
 import com.jerry.financecrawler.translate.eastmoney.JsonToEastMoneyFundProductVo;
 import com.jerry.financecrawler.visitor.HtmlRequest;
 import com.jerry.financecrawler.vo.*;
@@ -25,6 +27,8 @@ public class EastMoneyFundProductJob implements QuartzJob {
 
     private static final String baseUrl = CommonsUrl.EAST_MONEY_URL;
 
+    private static final String detailUrl = CommonsUrl.EAST_MONEY_DETAIL_URL;
+
     private static final String charset = CommonsCharset.GB2312;
 
     @Resource
@@ -34,6 +38,10 @@ public class EastMoneyFundProductJob implements QuartzJob {
     private JsonToEastMoneyFundProductVo jsonToEastMoneyFundProductVo;
     @Resource
     private SaveData saveData;
+    @Resource
+    private EastMoneyHistoricalNetJob eastMoneyHistoricalNetJob;
+    @Resource
+    private HtmlToEastMoneyDetailVo htmlToEastMoneyDetailVo;
 
     @Override
     public void execute() {
@@ -57,8 +65,8 @@ public class EastMoneyFundProductJob implements QuartzJob {
         log.info("EastMoney 基金产品采集服务完成");
     }
 
-    private FundProductTotalVo getHtmlData(int index, int pageNum, int allpages) throws Exception {
-        String url = CommonsUrl.getUrl(baseUrl, index, pageNum, 0);
+    private FundProductTotalVo getHtmlData(int index, int pageNum, int allPages) throws Exception {
+        String url = CommonsUrl.getUrl(baseUrl, index, pageNum, allPages);
         String data = htmlRequest.getHtmlData(url, charset);
         FundProductTotalVo fundProductTotalVo = null;
         if (!data.equals("")) {
@@ -66,18 +74,30 @@ public class EastMoneyFundProductJob implements QuartzJob {
             // 翻译EastMoney 产品数据
             fundProductTotalVo = jsonToEastMoneyFundProductVo.parseToEastMoneyData(data);
             List<FundProductVo> fundProductVoList = fundProductTotalVo.getDatas();
-            if(fundProductVoList != null && fundProductVoList.size() > 0){
+            if (fundProductVoList != null && fundProductVoList.size() > 0) {
                 for (int i = 0; i < fundProductVoList.size(); i++) {
-
-
-
+                    FundProductVo fundProductVo = fundProductVoList.get(i);
+                    String fincode = fundProductVo.getFincode();
+                    //获取product_code
+                    String product_code = getFcodeByFincode(fincode);
+                    fundProductVo.setProduct_code(product_code);
+                    //log.info("product_code = [" + product_code + "]");
                 }// for fundProductVoList
-                saveData.saveFundProductData(fundProductVoList);
+                //log.info("开始保存 基金产品数据");
+                List<FundProductPo> fundProductPoList = saveData.saveFundProductData(fundProductVoList);
+                //log.info("fundProductPoList.size = [" + fundProductPoList.size() + "]");
+                //采集新东方历史净值
+                eastMoneyHistoricalNetJob.execute(fundProductPoList);
             }// if fundProductVoList
-
         }
         return fundProductTotalVo;
     }
 
+    private String getFcodeByFincode(String fincode) throws Exception{
+        String url = CommonsUrl.getUrlByCode(detailUrl, fincode);
+        String data = htmlRequest.getHtmlData(url, charset);
+
+        return htmlToEastMoneyDetailVo.HtmlToProductCode(data);
+    }
 
 }
