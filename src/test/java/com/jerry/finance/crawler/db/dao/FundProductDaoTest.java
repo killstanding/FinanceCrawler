@@ -26,4 +26,12 @@ public class FundProductDaoTest extends TestBase {
         FundProductPo po =fundProductDao.find(id);
         log.info("[FundProductPo] = " + po.toString());
     }
+
+    @Test
+    public void testFindByCodeOrName(){
+        String product_name = "锝金1号";
+        FundProductPo po =fundProductDao.findByCodeOrName("", product_name);
+        log.info("[FundProductPo] = " + po.toString());
+
+    }
 }
