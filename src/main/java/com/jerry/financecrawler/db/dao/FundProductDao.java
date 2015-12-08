@@ -1,5 +1,6 @@
 package com.jerry.financecrawler.db.dao;
 
+import com.jerry.financecrawler.commons.StringUtil;
 import com.jerry.financecrawler.db.po.FundProductPo;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
@@ -178,9 +179,18 @@ public class FundProductDao implements IFundProduct {
 
     @Override
     public FundProductPo findByCodeOrName(String product_code, String product_name){
-        String sql = "SELECT * FROM bs_product WHERE product_code = ? or product_name = ? or product_shortname = ?";
-        List<FundProductPo> fundProductPoList = jdbcTemplate.query(sql, new Object[]{product_code, product_name, product_name},
-                new int[]{Types.VARCHAR,Types.VARCHAR,Types.VARCHAR}, new FundProductPo());
+        List<FundProductPo> fundProductPoList = null;
+        String sql = "";
+        if(StringUtil.isEmpty(product_code)){
+            sql = "SELECT * FROM bs_product WHERE product_name = ? or product_shortname = ?";
+            fundProductPoList = jdbcTemplate.query(sql, new Object[]{product_name, product_name},
+                    new int[]{Types.VARCHAR,Types.VARCHAR}, new FundProductPo());
+        }else{
+            sql = "SELECT * FROM bs_product WHERE product_code = ? or product_name = ? or product_shortname = ?";
+            fundProductPoList = jdbcTemplate.query(sql, new Object[]{product_code, product_name, product_name},
+                    new int[]{Types.VARCHAR,Types.VARCHAR,Types.VARCHAR}, new FundProductPo());
+        }
+
         if (fundProductPoList.isEmpty()) {
             return null;
         } else {
