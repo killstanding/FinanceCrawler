@@ -28,16 +28,29 @@ public class ProductFilter {
 
     //过滤type
     public static Boolean filterType(String type){
-        return typeList.contains(type);
+        boolean result = false;
+        if(!StringUtil.isEmpty(type)){
+            for (int i = 0; i < nameList.size(); i++) {
+                String midName = nameList.get(i);
+                if(type.toUpperCase().indexOf(midName.toUpperCase()) != -1){
+                    result = true;
+                    break;
+                }
+            }
+            if(result == false) result = typeList.contains(type);
+        }
+        return result;
     }
 
     public static boolean filterName(String name){
         boolean result = false;
-        for (int i = 0; i < nameList.size(); i++) {
-            String midName = nameList.get(i);
-            if(name.indexOf(midName) != -1){
-                result = true;
-                break;
+        if(!StringUtil.isEmpty(name)){
+            for (int i = 0; i < nameList.size(); i++) {
+                String midName = nameList.get(i);
+                if(name.toUpperCase().indexOf(midName.toUpperCase()) != -1){
+                    result = true;
+                    break;
+                }
             }
         }
         return result;
