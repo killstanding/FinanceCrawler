@@ -1,6 +1,7 @@
 package com.jerry.financecrawler.translate.howbuy;
 
 import com.jerry.financecrawler.commons.CommonsCharset;
+import com.jerry.financecrawler.commons.HtmlParserUtil;
 import com.jerry.financecrawler.commons.StringUtil;
 import com.jerry.financecrawler.vo.FundProductTotalVo;
 import com.jerry.financecrawler.vo.FundProductVo;
@@ -33,43 +34,29 @@ public class HtmlToFundProductVo {
         getPageData(fundProductTotalVo, html);
 
         //获取表格信息
-        Parser parser = new Parser();
-        parser.setResource(html);
-        parser.setEncoding(CommonsCharset.UTF_8);
-        NodeFilter filter = new HasAttributeFilter("class", "result_table result_data0");
-        NodeList div = parser.extractAllNodesThatMatch(filter);
+        NodeList div = HtmlParserUtil.filterTargetNode(html, CommonsCharset.UTF_8, "class", "result_table result_data0");
         if (div != null) {
-            NodeList table = new NodeList();
-            NodeFilter tabFilter = new TagNameFilter("table");
-            div.elementAt(0).collectInto(table, tabFilter);
+            NodeList table = HtmlParserUtil.filterNode(div.elementAt(0), "table");
             if (table != null && table.elementAt(0) != null && table.size() > 0) {
                 resultList = new ArrayList<FundProductVo>();
-                NodeList trs = new NodeList();
-                NodeFilter trFilter = new TagNameFilter("tr");
-                table.elementAt(0).collectInto(trs, trFilter);
+                NodeList trs = HtmlParserUtil.filterNode(table.elementAt(0), "tr");
                 if (trs != null && trs.size() > 0) {
                     for (int i = 0; i < trs.size(); i++) {
-                        NodeList tds = new NodeList();
-                        NodeFilter tdFilter = new TagNameFilter("td");
-                        trs.elementAt(i).collectInto(tds, tdFilter);
+                        NodeList tds = HtmlParserUtil.filterNode(trs.elementAt(i), "td");
                         if (i % 3 == 1 || i % 3 == 2) continue;
                         if (tds != null && tds.size() > 0) {
                             FundProductVo midVo = new FundProductVo();
                             IncomeVo incomeVo = new IncomeVo();
                             for (int j = 0; j < tds.size(); j++) {
                                 Node td = tds.elementAt(j);
-                                String val = td.toPlainTextString();
-                                String fval = StringUtil.filterAllSymbol(val);//过滤特殊符号
-                                //System.out.println("fval = [" + fval + "]" + "j = [" + j + "]");
+                                String fVal= HtmlParserUtil.getPlainTextString(td);
+                                //System.out.println("fVal = [" + fVal + "]" + "j = [" + j + "]");
                                 //赋值
                                 switch (j) {
                                     case 0:
-                                        NodeList inputs = new NodeList();
-                                        NodeFilter inputFilter = new TagNameFilter("input");
-                                        td.collectInto(inputs, inputFilter);
+                                        NodeList inputs = HtmlParserUtil.filterNode(td,"input");
                                         if(inputs.size()>0){
-                                            InputTag inputTag = (InputTag)inputs.elementAt(0);
-                                            String product_code = inputTag.getAttribute("code");
+                                            String product_code = HtmlParserUtil.getInputAttribute(inputs.elementAt(0), "code");
                                             midVo.setProduct_code(product_code);//基金编号
                                         }else{
                                             continue;
@@ -78,58 +65,58 @@ public class HtmlToFundProductVo {
                                     case 1:
                                         break;
                                     case 2:
-                                        if (fval != null && !fval.equals("")) {
-                                            midVo.setProduct_name(fval);//名称
-                                            midVo.setProduct_shortname(fval);//名称
+                                        if(!StringUtil.isEmpty(fVal)) {
+                                            midVo.setProduct_name(fVal);//名称
+                                            midVo.setProduct_shortname(fVal);//名称
                                         }
                                         break;
                                     case 3:
-                                        if (fval != null && !fval.equals("")) midVo.setProduct_TYPE(fval);//类型
+                                        if(!StringUtil.isEmpty(fVal)) midVo.setProduct_TYPE(fVal);//类型
                                         break;
                                     case 4:
-                                        if (fval != null && !fval.equals(""))
-                                            incomeVo.setI_SINCE_ITS_ESTABLISHMENT(StringUtil.StringToDouble(fval));
+                                        if(!StringUtil.isEmpty(fVal))
+                                            incomeVo.setI_SINCE_ITS_ESTABLISHMENT(StringUtil.StringToDouble(fVal));
                                         break;//成立以来
                                     case 5:
                                         break;
                                     case 6:
-                                        if (fval != null && !fval.equals(""))
-                                            incomeVo.setI_NEARLY_A_YEAR(StringUtil.StringToDouble(fval));
+                                        if(!StringUtil.isEmpty(fVal))
+                                            incomeVo.setI_NEARLY_A_YEAR(StringUtil.StringToDouble(fVal));
                                         break;//近一年
                                     case 7:
-                                        if (fval != null && !fval.equals(""))
-                                            incomeVo.setI_NEARLY_TWO_YEARS(StringUtil.StringToDouble(fval));
+                                        if(!StringUtil.isEmpty(fVal))
+                                            incomeVo.setI_NEARLY_TWO_YEARS(StringUtil.StringToDouble(fVal));
                                         break;//近两年
                                     case 8:
-                                        if (fval != null && !fval.equals(""))
-                                            incomeVo.setI_NEARLY_THREE_YEARS(StringUtil.StringToDouble(fval));
+                                        if(!StringUtil.isEmpty(fVal))
+                                            incomeVo.setI_NEARLY_THREE_YEARS(StringUtil.StringToDouble(fVal));
                                         break;//近三年
                                     case 9:
-                                        if (fval != null && !fval.equals(""))
-                                            incomeVo.setI_NEARLY_FIVE_YEARS(StringUtil.StringToDouble(fval));
+                                        if(!StringUtil.isEmpty(fVal))
+                                            incomeVo.setI_NEARLY_FIVE_YEARS(StringUtil.StringToDouble(fVal));
                                         break;//近5年
                                     case 10:
-                                        if (fval != null && !fval.equals(""))
-                                            incomeVo.setI_NEARLY_A_MONTH(StringUtil.StringToDouble(fval));
+                                        if(!StringUtil.isEmpty(fVal))
+                                            incomeVo.setI_NEARLY_A_MONTH(StringUtil.StringToDouble(fVal));
                                         break;// 近一月
                                     case 11:
-                                        if (fval != null && !fval.equals(""))
-                                            incomeVo.setI_NEARLY_THREE_MONTHS(StringUtil.StringToDouble(fval));
+                                        if(!StringUtil.isEmpty(fVal))
+                                            incomeVo.setI_NEARLY_THREE_MONTHS(StringUtil.StringToDouble(fVal));
                                         break;// 近三月
                                     case 12:
-                                        if (fval != null && !fval.equals(""))
-                                            incomeVo.setI_NEARLY_HALF_A_YEAR(StringUtil.StringToDouble(fval));
+                                        if(!StringUtil.isEmpty(fVal))
+                                            incomeVo.setI_NEARLY_HALF_A_YEAR(StringUtil.StringToDouble(fVal));
                                         break;//近半年
                                     case 13:
-                                        if (fval != null && !fval.equals(""))
-                                            incomeVo.setI_SINCE_THIS_YEAR(StringUtil.StringToDouble(fval));
+                                        if(!StringUtil.isEmpty(fVal))
+                                            incomeVo.setI_SINCE_THIS_YEAR(StringUtil.StringToDouble(fVal));
                                         break;//近一年
                                     case 14:
-                                        if (fval != null && !fval.equals("")) {
-                                            String preValue = StringUtil.subPreBracket(fval);
+                                        if(!StringUtil.isEmpty(fVal)) {
+                                            String preValue = StringUtil.subPreBracket(fVal);
                                             if (preValue != null && !preValue.equals(""))
                                                 incomeVo.setI_LATEST_NET_WORTH(StringUtil.StringToDouble(preValue));
-                                            String backValue = StringUtil.subBackBracket(fval);
+                                            String backValue = StringUtil.subBackBracket(fVal);
                                             if (backValue != null && !backValue.equals("")) {
                                                 backValue = StringUtil.addDateYear(backValue);
                                                 incomeVo.setI_UPDATE_DATE(backValue);
@@ -139,8 +126,8 @@ public class HtmlToFundProductVo {
                                     case 15:
                                         break; //评级
                                     case 16:
-                                        if (fval != null && !fval.equals(""))
-                                            midVo.setProduct_ESTABLISHMENT_DATE(fval);//   date 成立日期
+                                        if(!StringUtil.isEmpty(fVal))
+                                            midVo.setProduct_ESTABLISHMENT_DATE(fVal);//   date 成立日期
                                         break;
                                 }
                             }//for tds
