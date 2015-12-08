@@ -67,7 +67,7 @@ public class SaveData {
             // 保存不存在数据
             for (int i = 0; i < noExistVos.size(); i++) {
                 //产品
-                FundProductVo midVo = fundProductVoList.get(i);
+                FundProductVo midVo = noExistVos.get(i);
                 FundProductPo midPo = changeToPo(midVo);
                 midPo.setId(maxId + i + 1);
                 fundProductDao.save(midPo);
