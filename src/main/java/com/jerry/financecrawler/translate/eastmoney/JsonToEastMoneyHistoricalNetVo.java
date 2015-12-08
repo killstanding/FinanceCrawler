@@ -43,13 +43,13 @@ public class JsonToEastMoneyHistoricalNetVo {
                 Double NAVCHG = JsonParseUtil.getDouble(dataJson , "NAVCHG") * 100;
                 Double NAVCHGRT = JsonParseUtil.getDouble(dataJson ,"NAVCHGRT") * 100;//涨跌幅
                 String TYPE = StringUtil.filterAllSymbol(dataJson.getString("TYPE"));//
-                String BONUS = StringUtil.filterAllSymbol(dataJson.getString("BONUS"));//
+                //Double BONUS = JsonParseUtil.getDouble(dataJson , "BONUS") ;//
 
                 HistoricalNetVo historicalNetVo  = new HistoricalNetVo();
                 historicalNetVo.setProduct_id(product_id);
                 historicalNetVo.setProduct_code(product_code);
 
-                historicalNetVo.setNet_worth_date(PDATE);
+                if(!StringUtil.isEmpty(PDATE))historicalNetVo.setNet_worth_date(PDATE);
                 historicalNetVo.setUnit_net_worth(NAV);
                 historicalNetVo.setAdd_net_worth(NAVCHGRT);
                 historicalNetVo.setChg(NAVCHG);

@@ -35,8 +35,7 @@ public class JsonToEastMoneyFundProductVo {
             fundProductTotalVo.setErrCode(errCode);
             JSONArray datasArr = jsonObject.getJSONArray("Datas");
             List<FundProductVo> datas = new ArrayList<FundProductVo>();
-            for(int i=0;i<datasArr.length();i++){
-
+            for(int i=0; i<datasArr.length(); i++){
                 JSONObject dataJson=datasArr.getJSONObject(i);
                 //{"_id":"1000393325","FINCODE":"1000393325","FULLNAME":"华银精选基金","SHORTNAME":"华银精选基金","ESTABDATE":"2014-11-18","DCCODE":"77013311","MGRNAME":"","PDATE":"2015-10-30","NAV":12.7192,"M":64.2204,"Q":48.0805,"HY":971.9933,"Y":"","TWY":"","TRY":"","FY":"","SY":1329.1237,"SE":1172.3017}
                 String id = dataJson.getString("_id");
@@ -63,7 +62,7 @@ public class JsonToEastMoneyFundProductVo {
                 fundProductVo.setFincode(FINCODE);
                 fundProductVo.setProduct_name(FULLNAME);
                 fundProductVo.setProduct_shortname(SHORTNAME);
-                fundProductVo.setProduct_ESTABLISHMENT_DATE(ESTABDATE);
+                if(!StringUtil.isEmpty(ESTABDATE))fundProductVo.setProduct_ESTABLISHMENT_DATE(ESTABDATE);
                 IncomeVo incomeVo = new IncomeVo();
                 incomeVo.setI_UPDATE_DATE(PDATE);
                 incomeVo.setI_LATEST_NET_WORTH(NAV);
