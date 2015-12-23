@@ -4,11 +4,6 @@ import com.jerry.financecrawler.commons.CommonsCharset;
 import com.jerry.financecrawler.commons.HtmlParserUtil;
 import com.jerry.financecrawler.commons.StringUtil;
 import com.jerry.financecrawler.vo.*;
-import org.htmlparser.Node;
-import org.htmlparser.NodeFilter;
-import org.htmlparser.Parser;
-import org.htmlparser.filters.HasAttributeFilter;
-import org.htmlparser.filters.TagNameFilter;
 import org.htmlparser.util.NodeList;
 import org.springframework.stereotype.Component;
 /**
