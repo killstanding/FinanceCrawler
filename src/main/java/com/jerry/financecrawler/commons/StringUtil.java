@@ -68,16 +68,24 @@ public class StringUtil {
     }
 
     public static String dateToString(Date date) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd ");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         sdf.setTimeZone(TimeZone.getTimeZone("GMT+8"));
         return sdf.format(date);
     }
 
     public static Date strToDate(String str) throws ParseException {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd ");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         sdf.setTimeZone(TimeZone.getTimeZone("GMT+8"));
         Date date = sdf.parse(str);
         return date;
+    }
+
+    public static Date getPreDate(Date d) throws ParseException{
+        return new Date(d.getTime() -  24 * 60 * 60 * 1000);
+    }
+
+    public static Date getNextDate(Date d) throws ParseException{
+        return new Date(d.getTime() +  24 * 60 * 60 * 1000);
     }
 
     public static boolean isEmpty(String str) {
