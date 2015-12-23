@@ -55,7 +55,7 @@ public class IncomeDao implements IIncome {
 
     @Override
     public void remove(int product_id) {
-        String sql = "DELETE FROM bs_income WHERE product_id =" + product_id;
+        String sql = "DELETE FROM bs_income WHERE product_id = ?";
         jdbcTemplate.update(sql, new Object[]{product_id}, new int[]{Types.INTEGER});
     }
 
