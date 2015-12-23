@@ -1,6 +1,7 @@
 package com.jerry.financecrawler.save;
 
 import com.jerry.financecrawler.commons.ProductFilter;
+import com.jerry.financecrawler.commons.StringUtil;
 import com.jerry.financecrawler.convert.SetValue;
 import com.jerry.financecrawler.convert.VoToPo;
 import com.jerry.financecrawler.db.dao.*;
@@ -37,6 +38,8 @@ public class SaveData {
     private ISterlingRatio sterlingRatioDao;
     @Resource
     private IncomeRankingDao incomeRankingDao;
+    @Resource
+    private HSDao hsDao;
 
     public List<FundProductPo> saveFundProductData(List<FundProductVo> fundProductVoList) throws Exception{
         List<FundProductPo> result = new ArrayList<FundProductPo>();
@@ -100,9 +103,9 @@ public class SaveData {
             for (int i = 0; i < historicalNetList.size(); i++) {
                 HistoricalNetVo midVo = historicalNetList.get(i);
                 HistoricalNetPo midPo = VoToPo.historicalNetVoToPo(midVo);
-                String product_code = midPo.getProduct_code();
+                int product_id = midPo.getProduct_id();
                 String net_worth_date = midPo.getNet_worth_date();
-                if (historicalNetDao.findByProductIDAndDate(product_code, net_worth_date) == null) {
+                if (historicalNetDao.findByProductIDAndDate(product_id, net_worth_date) == null) {
                     if (midPo.getNet_worth_date() != null && !midPo.getNet_worth_date().equals("")) {
                         midPo.setId(maxId + i + 1);
                         historicalNetDao.save(midPo);
@@ -110,6 +113,14 @@ public class SaveData {
                 }//if
             }//for
         }//if
+    }
+
+    public void updateHistoricalNetInIncome(int product_id){
+        HistoricalNetPo latestPo =  historicalNetDao.findLatestPo(product_id);
+        IncomePo incomePo = incomeDao.find(product_id);
+        incomePo.setI_LATEST_NET_WORTH(latestPo.getUnit_net_worth());
+        incomePo.setI_UPDATE_DATE(latestPo.getNet_worth_date());
+        incomeDao.modify(incomePo);
     }
 
     public void saveFundProductData(FundProductVo vo, int id) throws Exception {
@@ -231,5 +242,49 @@ public class SaveData {
         }
     }
 
+    //HS300
+    public void saveHSData(List<HSVo> voList) throws Exception {
+        if (voList != null) {
+            Integer maxId = hsDao.getMaxId();
+            if(maxId == null) maxId = 0;
+            for (int i = 0; i < voList.size(); i++) {
+                HSVo vo = voList.get(i);
+                String date = vo.getDate();
+                HSPo prePo = hsDao.findPreData(date);
+                if(prePo != null) {
+                    double zdf = (vo.getSpj() - prePo.getSpj())/prePo.getSpj()*100;
+                    vo.setZdf(zdf);
+                }
+                HSPo po = hsDao.findByDate(date);
+                if (po == null) {
+                    po = VoToPo.hsVoToPo(vo);
+                    po.setId(maxId + i + 1);
+                    hsDao.save(po);
+                }else{
+                    SetValue.setHSPoValue(po, vo);
+                    hsDao.modify(po);
+                }
+            }//for
+        }//if
+    }
+
+    public void saveHSData(HSVo vo) throws Exception {
+        String date = vo.getDate();
+        HSPo prePo = hsDao.findPreData(date);
+        if(prePo != null) {
+            double zdf = (vo.getSpj() - prePo.getSpj())/prePo.getSpj()*100;
+            vo.setZdf(zdf);
+        }
+        Integer maxId = hsDao.getMaxId();
+        HSPo po = hsDao.findByDate(date);
+        if (po == null) {
+            po = VoToPo.hsVoToPo(vo);
+            po.setId(maxId +  1);
+            hsDao.save(po);
+        }else{
+            SetValue.setHSPoValue(po, vo);
+            hsDao.modify(po);
+        }
+    }
 
 }
