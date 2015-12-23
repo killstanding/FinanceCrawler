@@ -15,8 +15,10 @@ public class CommonsUrl {
     public static final String EAST_MONEY_DETAIL_URL = "http://simu.eastmoney.com/pro%s.html";
     //licai
     public static final String LI_CAI_URL = "http://www.licai.com/simu/phtype4.html";
-
     public static final String LI_CAI_BASE_URL = "http://www.licai.com/";
+    //hs300
+    public static final String HS_URL = "http://vip.stock.finance.sina.com.cn/corp/go.php/vMS_MarketHistory/stockid/000300/type/S.phtml";
+
 
     public static String getUrl(String baseUrl, int index, int pageNum, int totalPage) {
         String url = "";
