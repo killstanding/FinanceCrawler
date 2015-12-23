@@ -225,7 +225,7 @@ public class SetValue {
             po.setBS_EDUCATION(vo.getBS_EDUCATION());//学历
         if (StringUtil.isEmpty(po.getBS_PROFESSIONAL()))
             po.setBS_PROFESSIONAL(vo.getBS_PROFESSIONAL());//专业
-        if (StringUtil.isEmpty(po.getBS_WORKING_TIME()))
+        if (po.getBS_WORKING_TIME() == 0 || vo.getBS_WORKING_TIME() != 0 )
             po.setBS_WORKING_TIME(vo.getBS_WORKING_TIME());//从业时间
         if (StringUtil.isEmpty(po.getBS_WORKING_YEAR()))
             po.setBS_WORKING_YEAR(vo.getBS_WORKING_YEAR());//从业年限
@@ -303,4 +303,27 @@ public class SetValue {
         if (po.getProduct_is_crawler() == 0)
             po.setProduct_is_crawler(vo.getProduct_is_crawler()); //是否为爬取 1 是 0 不是
     }
+
+    //HS300
+    public static void setHSPoValue(HSPo po, HSVo vo) {
+        if(StringUtil.isEmpty(po.getDate()) || !StringUtil.isEmpty((vo.getDate())))
+            po.setDate(vo.getDate());//日期
+        if (po.getKpj() == 0 || vo.getKpj() != 0)
+            po.setKpj(vo.getKpj());//开盘价
+        if (po.getZgj() == 0 || vo.getZgj() != 0)
+            po.setZgj(vo.getZgj());//最高价
+        if (po.getSpj() == 0 || vo.getSpj() != 0)
+            po.setSpj(vo.getSpj());//收盘价
+        if (po.getZdj() == 0 || vo.getZdj() != 0)
+            po.setZdj(vo.getZdj());//最低价
+        if (po.getJyl() == 0 || vo.getJyl() != 0)
+            po.setJyl(vo.getJyl());//交易量(股)
+        if (po.getJyje() == 0 || vo.getJyje() != 0)
+            po.setJyje(vo.getJyje());//交易金额(元)
+        if (po.getZdf() == 0 || vo.getZdf() != 0)
+            po.setZdf(vo.getZdf());//涨跌幅
+    }
+
+
+
 }
