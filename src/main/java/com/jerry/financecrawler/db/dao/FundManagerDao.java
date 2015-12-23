@@ -37,7 +37,7 @@ public class FundManagerDao implements IFundManager {
                 ps.setString(8, po.getBS_UNIVERSITY());
                 ps.setString(9, po.getBS_EDUCATION());
                 ps.setString(10, po.getBS_PROFESSIONAL());
-                ps.setString(11, po.getBS_WORKING_TIME());
+                ps.setInt(11, po.getBS_WORKING_TIME());
                 ps.setString(12, po.getBS_WORKING_YEAR());
                 ps.setInt(13, po.getProduct_is_crawler());
                 return ps;
@@ -66,7 +66,7 @@ public class FundManagerDao implements IFundManager {
                 ps.setString(7, po.getBS_UNIVERSITY());
                 ps.setString(8, po.getBS_EDUCATION());
                 ps.setString(9, po.getBS_PROFESSIONAL());
-                ps.setString(10, po.getBS_WORKING_TIME());
+                ps.setInt(10, po.getBS_WORKING_TIME());
                 ps.setString(11, po.getBS_WORKING_YEAR());
                 ps.setInt(12, po.getProduct_is_crawler());
                 ps.setInt(13, po.getFundmanager_id());
