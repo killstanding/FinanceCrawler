@@ -1,7 +1,6 @@
 package com.jerry.financecrawler.db.dao;
 
 import com.jerry.financecrawler.db.po.AnnualFluctuationRatePo;
-import com.jerry.financecrawler.vo.AnnualFluctuationRateVo;
 
 /**
  * Created by Jerry on 15/11/16.
