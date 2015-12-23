@@ -88,10 +88,22 @@ public class HistoricalNetDao implements IHistoricalNet {
     }
 
     @Override
-    public HistoricalNetPo findByProductIDAndDate(String product_code, String net_worth_date) {
-        String sql = "SELECT * FROM bs_networth WHERE product_code =  ? and net_worth_date =  ?";
-        List<HistoricalNetPo> historicalNetPoList = jdbcTemplate.query(sql, new Object[]{product_code, net_worth_date},
-                new int[]{Types.VARCHAR,Types.VARCHAR}, new HistoricalNetPo());
+    public HistoricalNetPo findByProductIDAndDate(int product_id, String net_worth_date) {
+        String sql = "SELECT * FROM bs_networth WHERE product_id =  ? and net_worth_date =  ?";
+        List<HistoricalNetPo> historicalNetPoList = jdbcTemplate.query(sql, new Object[]{product_id, net_worth_date},
+                new int[]{Types.INTEGER,Types.VARCHAR}, new HistoricalNetPo());
+        if (historicalNetPoList.isEmpty()) {
+            return null;
+        } else {
+            return historicalNetPoList.get(0);
+        }
+    }
+
+    @Override
+    public HistoricalNetPo findLatestPo(int product_id) {
+        String sql = "SELECT * FROM bs_networth WHERE product_id = ? ORDER BY  net_worth_date DESC";
+        List<HistoricalNetPo> historicalNetPoList = jdbcTemplate.query(sql, new Object[]{product_id},
+                new int[]{Types.INTEGER}, new HistoricalNetPo());
         if (historicalNetPoList.isEmpty()) {
             return null;
         } else {
