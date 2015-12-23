@@ -24,8 +24,8 @@ import java.util.List;
 @Component
 public class HtmlToFundProductVo {
     public FundProductTotalVo parseToFundProductData(String html) throws Exception {
-
-        //System.out.println("html = [" + html + "]");
+//        if(html.indexOf("P04876") != -1)
+//        System.out.println("html = [" + html + "]");
         if (html == null || html.equals("")) return null;
         FundProductTotalVo fundProductTotalVo = new FundProductTotalVo();
         List<FundProductVo> resultList = null;
