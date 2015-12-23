@@ -2,11 +2,8 @@ package com.jerry.financecrawler.job.howbuy;
 
 import com.jerry.financecrawler.commons.CommonsCharset;
 import com.jerry.financecrawler.commons.CommonsUrl;
-import com.jerry.financecrawler.convert.VoToPo;
 import com.jerry.financecrawler.db.dao.IFundProduct;
-import com.jerry.financecrawler.db.dao.IHistoricalNet;
 import com.jerry.financecrawler.db.po.FundProductPo;
-import com.jerry.financecrawler.db.po.HistoricalNetPo;
 import com.jerry.financecrawler.job.QuartzJob;
 import com.jerry.financecrawler.save.SaveData;
 import com.jerry.financecrawler.translate.howbuy.HtmlToHistoricalNetVo;
@@ -63,7 +60,11 @@ public class HistoricalNetJob implements QuartzJob {
                     log.error("dealing HowBuyHistoricalNetJob data", ex);
                     ex.printStackTrace();
                 }
-                if(historicalNetList != null) saveData.saveHistoricalNetData(historicalNetList);
+                if(historicalNetList != null) {
+                    saveData.saveHistoricalNetData(historicalNetList);//保存历史净值
+                    saveData.updateHistoricalNetInIncome(product_id);//更新最新的历史净值到收益
+                }
+
             }
         }
         log.info("howbuy 历史净值采集服务完成");
@@ -78,8 +79,4 @@ public class HistoricalNetJob implements QuartzJob {
         }
         return historicalNetList;
     }
-
-
-
-
 }
