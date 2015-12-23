@@ -1,6 +1,5 @@
 package com.jerry.financecrawler.db.dao;
 
-import com.jerry.financecrawler.db.po.ProductReFundManagePeoplePo;
 import com.jerry.financecrawler.db.po.ProductReFundManagerPo;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
