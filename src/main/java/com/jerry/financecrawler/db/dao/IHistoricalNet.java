@@ -15,7 +15,9 @@ public interface IHistoricalNet {
 
     HistoricalNetPo find(int id);
 
-    HistoricalNetPo findByProductIDAndDate(String product_id, String date);
+    HistoricalNetPo findByProductIDAndDate(int product_id, String date);
 
     Integer getMaxId();
+
+    HistoricalNetPo findLatestPo(int product_id);
 }
