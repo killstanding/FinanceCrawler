@@ -15,7 +15,7 @@ public class FundManagerVo {
     private String BS_UNIVERSITY ; //  毕业院校
     private String BS_EDUCATION ; //  学历
     private String BS_PROFESSIONAL; //  专业
-    private String BS_WORKING_TIME; //  从业时间
+    private int BS_WORKING_TIME; //  从业时间
     private String BS_WORKING_YEAR; // 从业年限
     private int product_is_crawler ; // 是否为爬取 1 是 0 不是
     private String detail_url; //地址
@@ -100,11 +100,11 @@ public class FundManagerVo {
         this.BS_PROFESSIONAL = BS_PROFESSIONAL;
     }
 
-    public String getBS_WORKING_TIME() {
+    public int getBS_WORKING_TIME() {
         return BS_WORKING_TIME;
     }
 
-    public void setBS_WORKING_TIME(String BS_WORKING_TIME) {
+    public void setBS_WORKING_TIME(int BS_WORKING_TIME) {
         this.BS_WORKING_TIME = BS_WORKING_TIME;
     }
 
