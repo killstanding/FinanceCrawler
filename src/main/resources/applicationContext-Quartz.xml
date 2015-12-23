@@ -3,6 +3,32 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+    <bean id="hsJob" class="com.jerry.financecrawler.job.hs.HSJob"/>
+    <bean id="hsJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <!--<property name="group" value="job_work"/>-->
+        <!--<property name="name" value="job_work_name"/>-->
+        <!-- 是否允许任务并发执行。当值为false时，表示必须等到前一个线程处理完毕后才再启一个新的线程 -->
+        <property name="concurrent" value="false"/>
+        <property name="targetObject">
+            <ref bean="hsJob"/>
+        </property>
+        <property name="targetMethod">
+            <value>execute</value>
+        </property>
+    </bean>
+
+    <!--  调度触发器 -->
+    <bean id="hsJobCronTrigger"
+          class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <!--<property name="name" value="work_default_name"/>-->
+        <!--<property name="group" value="work_default"/>-->
+        <property name="jobDetail">
+            <ref bean="hsJobDetail"/>
+        </property>
+        <property name="cronExpression">
+            <value>${hs}</value>
+        </property>
+    </bean>
 
     <bean id="liCaiJob" class="com.jerry.financecrawler.job.licai.LiCaiFundProductJob"/>
     <bean id="liCaiJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
@@ -58,7 +84,6 @@
             <value>${eastmoney.fundproduct}</value>
         </property>
     </bean>
-
 
 
     <bean id="howBuyFundProductJob" class="com.jerry.financecrawler.job.howbuy.FundProductJob"/>
@@ -148,12 +173,12 @@
     <bean id="scheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
         <property name="triggers">
             <list>
-
+                <ref local="hsJobCronTrigger"/>
                 <ref local="liCaiJobCronTrigger"/>
-                <!--<ref local="eastMoneyJobCronTrigger"/>
-                <ref local="howBuyFundProductJobCronTrigger"/>
                 <ref local="howBuyHistoricalNetJobCronTrigger"/>
-                <ref local="howBuyDetailJobCronTrigger"/>-->
+                <ref local="eastMoneyJobCronTrigger"/>
+                <ref local="howBuyFundProductJobCronTrigger"/>
+                <ref local="howBuyDetailJobCronTrigger"/><!---->
             </list>
         </property>
     </bean>
