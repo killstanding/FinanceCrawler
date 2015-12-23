@@ -42,7 +42,7 @@ public class FundManagerPo extends FundManagerVo implements RowMapper<FundManage
         fundManagerPo.setBS_UNIVERSITY(rs.getString("BS_UNIVERSITY"));//毕业院校
         fundManagerPo.setBS_EDUCATION(rs.getString("BS_EDUCATION"));//学历
         fundManagerPo.setBS_PROFESSIONAL(rs.getString("BS_PROFESSIONAL"));//专业
-        fundManagerPo.setBS_WORKING_TIME(rs.getString("BS_WORKING_TIME"));//从业时间
+        fundManagerPo.setBS_WORKING_TIME(rs.getInt("BS_WORKING_TIME"));//从业时间
         fundManagerPo.setBS_WORKING_YEAR(rs.getString("BS_WORKING_YEAR"));//从业年限
         fundManagerPo.setProduct_is_crawler(rs.getInt("product_is_crawler")); //是否为爬取 1 是 0 不是
         return fundManagerPo;
