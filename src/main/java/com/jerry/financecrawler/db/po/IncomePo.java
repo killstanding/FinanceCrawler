@@ -20,8 +20,8 @@ public class IncomePo extends IncomeVo implements RowMapper<IncomePo> {
         if (obj == null || (obj.getClass() != this.getClass())) {
             return false;
         }
-        IncomePo eastFinancePo = (IncomePo) obj;
-        if (this.getProduct_id() != eastFinancePo.getProduct_id()) {
+        IncomePo incomePo = (IncomePo) obj;
+        if (this.getProduct_id() != incomePo.getProduct_id()) {
             return false;
         }
         return true;
