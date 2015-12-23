@@ -227,4 +227,20 @@ public class VoToPo {
         return po;
     }
 
+    //HS300
+    public static HSPo hsVoToPo(HSVo vo) {
+        HSPo po = new HSPo();
+        po.setId(vo.getId());
+        po.setDate(vo.getDate());//日期
+        po.setKpj(vo.getKpj());//开盘价
+        po.setZgj(vo.getZgj());//最高价
+        po.setSpj(vo.getSpj());//收盘价
+        po.setZdj(vo.getZdj());//最低价
+        po.setJyl(vo.getJyl());//交易量(股)
+        po.setJyje(vo.getJyje());//交易金额(元)
+        po.setZdf(vo.getZdf());//涨跌幅
+        return po;
+    }
+
+
 }
