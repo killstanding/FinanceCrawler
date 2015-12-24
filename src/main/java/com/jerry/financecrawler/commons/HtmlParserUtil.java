@@ -51,9 +51,17 @@ public class HtmlParserUtil {
 
     public static String getPlainTextString(Node node){
         String val = node.toPlainTextString();
-        String fVal = StringUtil.filterAllSymbol(val);//过滤特殊符号
+        String fVal = StringUtil.filterAllSymbol(val).trim();//过滤特殊符号
         return fVal;
     }
+
+    public static String getPlainTextStringWithoutFilter(Node node){
+        String val = node.toPlainTextString();
+        String fVal =val.trim();
+        return fVal;
+    }
+
+
 
     public static String getInputAttribute(Node node, String key){
         InputTag inputTag = (InputTag)node;
