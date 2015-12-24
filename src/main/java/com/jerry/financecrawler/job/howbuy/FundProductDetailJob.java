@@ -8,6 +8,7 @@ import com.jerry.financecrawler.db.po.FundProductPo;
 import com.jerry.financecrawler.job.QuartzJob;
 import com.jerry.financecrawler.save.SaveData;
 import com.jerry.financecrawler.translate.howbuy.HtmlToIncomeRankingVo;
+import com.jerry.financecrawler.translate.howbuy.HtmlToIncomeVo;
 import com.jerry.financecrawler.translate.howbuy.HtmlToRiskAssessmentIndexVo;
 import com.jerry.financecrawler.visitor.HtmlRequest;
 import com.jerry.financecrawler.vo.*;
@@ -43,6 +44,8 @@ public class FundProductDetailJob implements QuartzJob {
     private HtmlToRiskAssessmentIndexVo htmlToRiskAssessmentIndexVo;
     @Resource
     private HtmlToIncomeRankingVo htmlToIncomeRankingVo;
+    @Resource
+    private HtmlToIncomeVo htmlToIncomeVo;
 
     @Override
     public void execute() {
@@ -53,7 +56,6 @@ public class FundProductDetailJob implements QuartzJob {
                 FundProductPo fundProduct = fundProductPoList.get(i);
                 String product_code = fundProduct.getProduct_code();
                 //System.out.println("product_code = " + product_code);
-                List<FundProductVo> fundProductVoList = null;
                 try {
                     if (product_code != null && !product_code.equals("")) {
                         getHtmlData(fundProduct);
@@ -77,16 +79,23 @@ public class FundProductDetailJob implements QuartzJob {
         int product_id = fundProductVo.getId();
 
         if (!html.equals("")) {
+
+            //解析收益指标
+            IncomeVo incomeVo = htmlToIncomeVo.parseToIncomeData(html, product_id) ;
+
+            //保存收益
+            if(incomeVo != null) saveData.saveIncomeData(incomeVo, product_id);
+
             //解析风险评估指标
             RiskAssessmentIndexVo riskAssessmentIndexVo = htmlToRiskAssessmentIndexVo.parseToRiskAssessmentIndexData(html, product_id);
 
             //保存风险评估指标
             saveRiskAssessmentIndexData(riskAssessmentIndexVo, product_id);
 
-            //解析同类排名
+            //解析收益同类排名
             IncomeRankingVo incomeRankingVo = htmlToIncomeRankingVo.parseToIncomeRankingData(html, product_id);
 
-            saveIncomeRankingData(incomeRankingVo, product_id);
+            if(incomeRankingVo != null) saveData.saveIncomeRankingData(incomeRankingVo, product_id);
 
             //解析费用费率
 
@@ -126,8 +135,4 @@ public class FundProductDetailJob implements QuartzJob {
 
     }
 
-    //收益排名
-    private void saveIncomeRankingData(IncomeRankingVo incomeRankingVo, int product_id) throws Exception {
-        if(incomeRankingVo != null) saveData.saveIncomeRankingData(incomeRankingVo, product_id);
-    }
 }
