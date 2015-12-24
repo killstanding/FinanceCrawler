@@ -9,9 +9,6 @@ import com.jerry.financecrawler.vo.*;
  */
 public class SetValue {
 
-
-
-
     //产品
     public static void setFundProductPoValue(FundProductPo po, FundProductVo vo) {
         po.setFincode(vo.getFincode());
@@ -235,21 +232,21 @@ public class SetValue {
 
     //收益排名
     public static void setIncomeRankingPoValue(IncomeRankingPo po, IncomeRankingVo vo) {
-        if (StringUtil.isEmpty(po.getIR_SINCE_THIS_YEAR()) || StringUtil.isEmpty(vo.getIR_SINCE_THIS_YEAR()))
+        if (StringUtil.isEmpty(po.getIR_SINCE_THIS_YEAR()) || !StringUtil.isEmpty(vo.getIR_SINCE_THIS_YEAR()))
             po.setIR_SINCE_THIS_YEAR(vo.getIR_SINCE_THIS_YEAR());// 今年以来
-        if (StringUtil.isEmpty(po.getIR_NEARLY_A_MONTH()) || StringUtil.isEmpty(vo.getIR_NEARLY_A_MONTH()))
+        if (StringUtil.isEmpty(po.getIR_NEARLY_A_MONTH()) || !StringUtil.isEmpty(vo.getIR_NEARLY_A_MONTH()))
             po.setIR_NEARLY_A_MONTH(vo.getIR_NEARLY_A_MONTH());// 近一月
-        if (StringUtil.isEmpty(po.getIR_NEARLY_THREE_MONTHS()) || StringUtil.isEmpty(vo.getIR_NEARLY_THREE_MONTHS()))
+        if (StringUtil.isEmpty(po.getIR_NEARLY_THREE_MONTHS()) || !StringUtil.isEmpty(vo.getIR_NEARLY_THREE_MONTHS()))
             po.setIR_NEARLY_THREE_MONTHS(vo.getIR_NEARLY_THREE_MONTHS());// 近三月
-        if (StringUtil.isEmpty(po.getIR_NEARLY_HALF_A_YEAR()) || StringUtil.isEmpty(vo.getIR_NEARLY_HALF_A_YEAR()))
+        if (StringUtil.isEmpty(po.getIR_NEARLY_HALF_A_YEAR()) || !StringUtil.isEmpty(vo.getIR_NEARLY_HALF_A_YEAR()))
             po.setIR_NEARLY_HALF_A_YEAR(vo.getIR_NEARLY_HALF_A_YEAR());//近半年
-        if (StringUtil.isEmpty(po.getIR_NEARLY_A_YEAR()) || StringUtil.isEmpty(vo.getIR_NEARLY_A_YEAR()))
+        if (StringUtil.isEmpty(po.getIR_NEARLY_A_YEAR()) || !StringUtil.isEmpty(vo.getIR_NEARLY_A_YEAR()))
             po.setIR_NEARLY_A_YEAR(vo.getIR_NEARLY_A_YEAR());// 近一年
-        if (StringUtil.isEmpty(po.getIR_NEARLY_TWO_YEARS()) || StringUtil.isEmpty(vo.getIR_NEARLY_TWO_YEARS()))
+        if (StringUtil.isEmpty(po.getIR_NEARLY_TWO_YEARS()) || !StringUtil.isEmpty(vo.getIR_NEARLY_TWO_YEARS()))
             po.setIR_NEARLY_TWO_YEARS(vo.getIR_NEARLY_TWO_YEARS());//近两年
-        if (StringUtil.isEmpty(po.getIR_NEARLY_THREE_YEARS()) || StringUtil.isEmpty(vo.getIR_NEARLY_THREE_YEARS()))
+        if (StringUtil.isEmpty(po.getIR_NEARLY_THREE_YEARS()) || !StringUtil.isEmpty(vo.getIR_NEARLY_THREE_YEARS()))
             po.setIR_NEARLY_THREE_YEARS(vo.getIR_NEARLY_THREE_YEARS());//近三年
-        if (StringUtil.isEmpty(po.getIR_NEARLY_FIVE_YEARS()) || StringUtil.isEmpty(vo.getIR_NEARLY_FIVE_YEARS()))
+        if (StringUtil.isEmpty(po.getIR_NEARLY_FIVE_YEARS()) || !StringUtil.isEmpty(vo.getIR_NEARLY_FIVE_YEARS()))
             po.setIR_NEARLY_FIVE_YEARS(vo.getIR_NEARLY_FIVE_YEARS());//近5年
         if (po.getProduct_is_crawler() == 0)
             po.setProduct_is_crawler(vo.getProduct_is_crawler()); //是否为爬取 1 是 0 不是
