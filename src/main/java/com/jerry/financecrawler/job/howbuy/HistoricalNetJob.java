@@ -53,16 +53,21 @@ public class HistoricalNetJob implements QuartzJob {
                     if (product_code != null && !product_code.equals("")) {
                         historicalNetList = getHtmlData(product_id, product_code);
                     } else {
-                        log.error(fundProduct.getProduct_name() + "(" + fundProduct.getProduct_shortname() + ")的 product_code为空");
+                        log.error("id = "+ product_id+", name ="+fundProduct.getProduct_name() + "(" + fundProduct.getProduct_shortname() + ")的 product_code为空");
                     }
                 } catch (Exception ex) {
-                    log.error(fundProduct.getProduct_name() + "(" + fundProduct.getProduct_shortname() + ")的 product_code = " + product_code);
+                    log.error("id = "+ product_id +", name ="+ fundProduct.getProduct_name() + "(" + fundProduct.getProduct_shortname() + ")的 product_code = " + product_code);
                     log.error("dealing HowBuyHistoricalNetJob data", ex);
                     ex.printStackTrace();
                 }
                 if(historicalNetList != null) {
-                    saveData.saveHistoricalNetData(historicalNetList);//保存历史净值
-                    saveData.updateHistoricalNetInIncome(product_id);//更新最新的历史净值到收益
+                    try {
+                        saveData.saveHistoricalNetData(historicalNetList);//保存历史净值
+                        saveData.updateHistoricalNetInIncome(product_id);//更新最新的历史净值到收益
+                    } catch (Exception e) {
+                        log.error("id = "+ product_id+", name ="+fundProduct.getProduct_name() + "(" + fundProduct.getProduct_shortname() + ")的历史净值保存 或者 收益更新失败", e);
+                        e.printStackTrace();
+                    }
                 }
 
             }
