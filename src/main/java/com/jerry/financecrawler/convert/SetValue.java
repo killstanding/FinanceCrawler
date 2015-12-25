@@ -90,7 +90,7 @@ public class SetValue {
 
         if (StringUtil.isEmpty(po.getI_UPDATE_DATE()) || !StringUtil.isEmpty(vo.getI_UPDATE_DATE()) ) {
             if (StringUtil.isEmpty(vo.getI_UPDATE_DATE())) {
-                po.setI_UPDATE_DATE("");
+                //po.setI_UPDATE_DATE("");
             } else {
                 po.setI_UPDATE_DATE(vo.getI_UPDATE_DATE());
             }
