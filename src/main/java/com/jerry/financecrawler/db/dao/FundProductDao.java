@@ -171,7 +171,7 @@ public class FundProductDao implements IFundProduct {
 
     @Override
     public List<FundProductPo> findAll() {
-        String sql = "SELECT * FROM bs_product ";
+        String sql = "SELECT * FROM bs_product order by id";
         List<FundProductPo> fundProductPoList = jdbcTemplate.query(sql, new FundProductPo());
 
         return fundProductPoList;
